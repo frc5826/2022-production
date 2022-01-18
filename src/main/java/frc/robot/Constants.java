@@ -24,5 +24,6 @@ public final class Constants {
     public static final int DriveID4 = 8;
 
     public static final double maxSpeed = 0.3;
+    public static final double intakeSpeed = 0.3;
 
 }
