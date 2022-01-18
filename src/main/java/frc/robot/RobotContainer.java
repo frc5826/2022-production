@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Subsystem;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.JoystickDriveCommand;
 import frc.robot.subsystems.DriveSubsystem;
 
@@ -46,6 +47,13 @@ public class RobotContainer
     {
         // Add button to command mappings here.
         // See https://docs.wpilib.org/en/stable/docs/software/commandbased/binding-commands-to-triggers.html
+        //- Create a JoystickButton and pass it our joystick and the button number.
+        //JoystickButton button = new JoystickButton(Constants.joystick, 1);
+        //- You can now tie commands to actions of that button. Some examples (not exhaustive) below...
+        //button.whileHeld(new SomeCommand());
+        //button.whenPressed(new SomeCommand());
+        //button.whenReleased(new SomeCommand());
+        //- When creating these bindings, think through if you want a new command or want to reuse an existing one.
     }
     
     
