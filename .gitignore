@@ -1,8 +1,8 @@
 # Kids are getting conflicts from .lock and .bin files in the gradle directory
 
-#.gradle/**/checksums.lock
-#.gradle/**/md5-checksums.bin
-#.gradle/**/sha1-checksums.bin
+.gradle/**/checksums.lock
+.gradle/**/md5-checksums.bin
+.gradle/**/sha1-checksums.bin
 
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio, WebStorm and Rider
 # Reference: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
