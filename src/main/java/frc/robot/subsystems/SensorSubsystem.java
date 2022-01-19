@@ -2,11 +2,12 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.LidarLitePWM;
 import com.revrobotics.Rev2mDistanceSensor;
 import com.revrobotics.Rev2mDistanceSensor.Port;
 
-public class SensorSubsystem {
+public class SensorSubsystem extends SubsystemBase {
 
     final LidarLitePWM lidar;
     final AnalogInput sonar;
