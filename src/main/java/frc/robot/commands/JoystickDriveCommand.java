@@ -17,4 +17,8 @@ public class JoystickDriveCommand extends CommandBase {
         driveSubsystem.getDiffDrive().arcadeDrive(Constants.joystick.getY() * -1, Constants.joystick.getZ());
     }
 
+    @Override
+    public void end(boolean interrupted) {
+        driveSubsystem.getDiffDrive().arcadeDrive(0,0);
+    }
 }
