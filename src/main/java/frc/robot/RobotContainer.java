@@ -10,9 +10,12 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.commands.ElevatorControllerCommand;
+import frc.robot.commands.IntakeControllerCommand;
 import frc.robot.commands.JoystickDriveCommand;
 import frc.robot.subsystems.DriveSubsystem;
-
+import frc.robot.subsystems.ElevatorSubsystem;
+import frc.robot.subsystems.IntakeSubsystem;
 
 
 /**
@@ -27,11 +30,21 @@ public class RobotContainer
     private final DriveSubsystem driveSubsystem;
     private final JoystickDriveCommand joystickDriveCommand;
 
+    private final IntakeSubsystem intakeSubsystem;
+
+    private final ElevatorSubsystem elevatorSubsystem;
+    private final ElevatorControllerCommand elevatorControllerCommand;
+
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer()
     {
         driveSubsystem = new DriveSubsystem();
         joystickDriveCommand = new JoystickDriveCommand(driveSubsystem);
+
+        intakeSubsystem = new IntakeSubsystem(Constants.IntakeID);
+
+        elevatorSubsystem = new ElevatorSubsystem(Constants.ElevatorID);
+        elevatorControllerCommand = new ElevatorControllerCommand(elevatorSubsystem);
         // Configure the button bindings
         configureButtonBindings();
     }
@@ -48,9 +61,9 @@ public class RobotContainer
         // Add button to command mappings here.
         // See https://docs.wpilib.org/en/stable/docs/software/commandbased/binding-commands-to-triggers.html
         //- Create a JoystickButton and pass it our joystick and the button number.
-        //JoystickButton button = new JoystickButton(Constants.joystick, 1);
+        JoystickButton trigger = new JoystickButton(Constants.joystick, 1);
         //- You can now tie commands to actions of that button. Some examples (not exhaustive) below...
-        //button.whileHeld(new SomeCommand());
+        trigger.whileHeld(new IntakeControllerCommand(intakeSubsystem));
         //button.whenPressed(new SomeCommand());
         //button.whenReleased(new SomeCommand());
         //- When creating these bindings, think through if you want a new command or want to reuse an existing one.
@@ -69,5 +82,13 @@ public class RobotContainer
 
     public Command getJoystickDrive() {
         return joystickDriveCommand;
+    }
+
+    public Subsystem getElevatorSubsystem() {
+        return elevatorSubsystem;
+    }
+
+    public Command getElevatorCommand() {
+        return elevatorControllerCommand;
     }
 }

@@ -8,7 +8,8 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import frc.robot.commands.JoystickDriveCommand;
 
 
 /**
@@ -35,6 +36,7 @@ public class Robot extends TimedRobot
         // autonomous chooser on the dashboard.
         robotContainer = new RobotContainer();
         CommandScheduler.getInstance().setDefaultCommand(robotContainer.getDriveSubsystem(), robotContainer.getJoystickDrive());
+        CommandScheduler.getInstance().setDefaultCommand(robotContainer.getElevatorSubsystem(), robotContainer.getElevatorCommand());
     }
     
     
@@ -100,7 +102,9 @@ public class Robot extends TimedRobot
     
     /** This method is called periodically during operator control. */
     @Override
-    public void teleopPeriodic() {}
+    public void teleopPeriodic() {
+
+    }
     
     
     @Override

@@ -22,4 +22,9 @@ public class IntakeControllerCommand extends CommandBase {
             intakeSubsystem.getTalon().set(TalonSRXControlMode.PercentOutput, Constants.intakeSpeed);
         }
     }
+
+    @Override
+    public void end(boolean interrupted) {
+        intakeSubsystem.getTalon().set(TalonSRXControlMode.PercentOutput, 0);
+    }
 }

@@ -18,12 +18,16 @@ public final class Constants {
 
     public static final Joystick joystick = new Joystick(0);
 
+    //TODO Get the correct IDs for the speed controllers
     public static final int DriveID1 = 3;
     public static final int DriveID2 = 4;
     public static final int DriveID3 = 7;
     public static final int DriveID4 = 8;
+    public static final int IntakeID = 0;
+    public static final int ElevatorID = 0;
 
     public static final double maxSpeed = 0.3;
     public static final double intakeSpeed = 0.3;
+    public static final double elevatorSpeed = 0.3;
 
 }
