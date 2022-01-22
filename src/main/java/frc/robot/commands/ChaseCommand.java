@@ -49,7 +49,7 @@ public class ChaseCommand extends CommandBase {
             }
 
             targetAcquired = true;
-            //simple chase vv
+            //less simple chase vv
             driveSubsystem.getDiffDrive().arcadeDrive(forwardSpeed, turnSpeed);
         }
         else{

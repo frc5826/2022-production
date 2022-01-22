@@ -10,10 +10,10 @@ import static frc.robot.Constants.*;
 
 public class DriveSubsystem extends SubsystemBase {
 
-    private CANSparkMax spark1;
-    private CANSparkMax spark2;
-    private CANSparkMax spark3;
-    private CANSparkMax spark4;
+    private CANSparkMax leftSpark1;
+    private CANSparkMax leftSpark2;
+    private CANSparkMax rightSpark1;
+    private CANSparkMax rightSpark2;
 
     private MotorControllerGroup leftSpeedControllers;
     private MotorControllerGroup rightSpeedControllers;
@@ -21,15 +21,15 @@ public class DriveSubsystem extends SubsystemBase {
     private DifferentialDrive differentialDrive;
 
     public DriveSubsystem() {
-        spark1 = new CANSparkMax(DriveID1, CANSparkMaxLowLevel.MotorType.kBrushless);
-        spark2 = new CANSparkMax(DriveID2, CANSparkMaxLowLevel.MotorType.kBrushless);
-        spark3 = new CANSparkMax(DriveID3, CANSparkMaxLowLevel.MotorType.kBrushless);
-        spark4 = new CANSparkMax(DriveID4, CANSparkMaxLowLevel.MotorType.kBrushless);
+        leftSpark1 = new CANSparkMax(leftID1, CANSparkMaxLowLevel.MotorType.kBrushless);
+        leftSpark2 = new CANSparkMax(leftID2, CANSparkMaxLowLevel.MotorType.kBrushless);
+        rightSpark1 = new CANSparkMax(rightID1, CANSparkMaxLowLevel.MotorType.kBrushless);
+        rightSpark2 = new CANSparkMax(rightID2, CANSparkMaxLowLevel.MotorType.kBrushless);
 
-        leftSpeedControllers = new MotorControllerGroup(spark1, spark2);
-        rightSpeedControllers = new MotorControllerGroup(spark3, spark4);
+        leftSpeedControllers = new MotorControllerGroup(leftSpark1, leftSpark2);
+        rightSpeedControllers = new MotorControllerGroup(rightSpark1, rightSpark2);
 
-        differentialDrive = new DifferentialDrive(leftSpeedControllers, rightSpeedControllers);
+        differentialDrive = new DifferentialDrive(leftSpark1, rightSpark1);
     }
 
     public DifferentialDrive getDiffDrive(){

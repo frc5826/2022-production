@@ -30,7 +30,7 @@ public class RobotContainer
     private final DriveSubsystem driveSubsystem;
     private final JoystickDriveCommand joystickDriveCommand;
 
-    private final IntakeSubsystem intakeSubsystem;
+   // private final IntakeSubsystem intakeSubsystem;
 
     private final ElevatorSubsystem elevatorSubsystem;
     private final ElevatorControllerCommand elevatorControllerCommand;
@@ -41,7 +41,7 @@ public class RobotContainer
         driveSubsystem = new DriveSubsystem();
         joystickDriveCommand = new JoystickDriveCommand(driveSubsystem);
 
-        intakeSubsystem = new IntakeSubsystem(Constants.IntakeID);
+//        intakeSubsystem = new IntakeSubsystem(Constants.IntakeID);
 
         elevatorSubsystem = new ElevatorSubsystem(Constants.ElevatorID);
         elevatorControllerCommand = new ElevatorControllerCommand(elevatorSubsystem);
@@ -63,7 +63,7 @@ public class RobotContainer
         //- Create a JoystickButton and pass it our joystick and the button number.
         JoystickButton trigger = new JoystickButton(Constants.joystick, 1);
         //- You can now tie commands to actions of that button. Some examples (not exhaustive) below...
-        trigger.whileHeld(new IntakeControllerCommand(intakeSubsystem));
+        //trigger.whileHeld(new IntakeControllerCommand(intakeSubsystem));
         //button.whenPressed(new SomeCommand());
         //button.whenReleased(new SomeCommand());
         //- When creating these bindings, think through if you want a new command or want to reuse an existing one.
