@@ -13,6 +13,8 @@ public class ChaseCommand extends CommandBase {
     public double forwardSpeed = 0;
     public double turnSpeed = 0;
 
+    public int detectionCountDown = 0;
+
     public ChaseCommand(SensorSubsystem sensorSubsystem, DriveSubsystem driveSubsystem){
         this.sensorSubsystem = sensorSubsystem;
         this.driveSubsystem = driveSubsystem;
@@ -26,11 +28,9 @@ public class ChaseCommand extends CommandBase {
 
             forwardSpeed = sensorSubsystem.getBallDistance() / 150;
 
-            //peak speed of .8 = greater than 10 ft
             if (forwardSpeed >= 0.8){
                 forwardSpeed = 0.8;
             }
-            //minimum speed of .15 = less than ~2 ft
             else if(forwardSpeed <= 0.15){
                 forwardSpeed = 0.15;
             }
@@ -50,16 +50,31 @@ public class ChaseCommand extends CommandBase {
 
             targetAcquired = true;
             //less simple chase vv
-            driveSubsystem.getDiffDrive().arcadeDrive(forwardSpeed, turnSpeed);
+            driveSubsystem.getDiffDrive().arcadeDrive(-forwardSpeed, -turnSpeed);
+
+            detectionCountDown = 50;
         }
         else{
-            System.out.print("i cant find my balls :( ");
+            //occlusion detection vv
+            if (targetAcquired = true && detectionCountDown > 0){
+                driveSubsystem.getDiffDrive().arcadeDrive(-forwardSpeed, -turnSpeed);
+                detectionCountDown --;
+            }
+            else {
+                targetAcquired = false;
+                driveSubsystem.getDiffDrive().arcadeDrive(0,0.4);
+            }
 
-            targetAcquired = false;
-            driveSubsystem.getDiffDrive().arcadeDrive(0,0.4);
+            System.out.print("i cant find my balls :( ");
         }
+    }
+    @Override
+    public void end(boolean interrupted) {
+        System.out.println("Ending!");
+        driveSubsystem.getDiffDrive().arcadeDrive(0,0);
     }
 }
 
 //TODO : if blocked slow down / stop
-//TODO : occlusion detection
+//TODO : occlusion detection (done maybe?)
+
