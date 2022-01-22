@@ -29,7 +29,7 @@ public class DriveSubsystem extends SubsystemBase {
         leftSpeedControllers = new MotorControllerGroup(leftSpark1, leftSpark2);
         rightSpeedControllers = new MotorControllerGroup(rightSpark1, rightSpark2);
 
-        differentialDrive = new DifferentialDrive(leftSpark1, rightSpark1);
+        differentialDrive = new DifferentialDrive(leftSpeedControllers, rightSpeedControllers);
     }
 
     public DifferentialDrive getDiffDrive(){
