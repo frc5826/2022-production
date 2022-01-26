@@ -31,21 +31,21 @@ public class RobotContainer
     // The robot's subsystems and commands are defined here...
     private final DriveSubsystem driveSubsystem;
     private final JoystickDriveCommand joystickDriveCommand;
-    private final ChaseCommand chaseCommand;
+//    private final ChaseCommand chaseCommand;
 
    // private final IntakeSubsystem intakeSubsystem;
 
     private final ElevatorSubsystem elevatorSubsystem;
     private final ElevatorControllerCommand elevatorControllerCommand;
-    private final SensorSubsystem sensorSubsystem;
+//    private final SensorSubsystem sensorSubsystem;
 
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer()
     {
-        sensorSubsystem = new SensorSubsystem(-1,-1, true);
+//        sensorSubsystem = new SensorSubsystem(-1,-1, true);
         driveSubsystem = new DriveSubsystem();
         joystickDriveCommand = new JoystickDriveCommand(driveSubsystem);
-        chaseCommand = new ChaseCommand(sensorSubsystem, driveSubsystem);
+//        chaseCommand = new ChaseCommand(sensorSubsystem, driveSubsystem);
 
 //        intakeSubsystem = new IntakeSubsystem(Constants.IntakeID);
 
@@ -69,7 +69,7 @@ public class RobotContainer
         //- Create a JoystickButton and pass it our joystick and the button number.
         JoystickButton trigger = new JoystickButton(Constants.joystick, 1);
         //- You can now tie commands to actions of that button. Some examples (not exhaustive) below...
-        trigger.whileHeld(getChaseCommand());
+//        trigger.whileHeld(getChaseCommand());
         //button.whenPressed(new SomeCommand());
         //button.whenReleased(new SomeCommand());
         //- When creating these bindings, think through if you want a new command or want to reuse an existing one.
@@ -98,5 +98,5 @@ public class RobotContainer
         return elevatorControllerCommand;
     }
 
-    public Command getChaseCommand() { return chaseCommand;}
+//    public Command getChaseCommand() { return chaseCommand;}
 }

@@ -18,7 +18,8 @@ public class DriveSubsystem extends SubsystemBase {
     private MotorControllerGroup leftSpeedControllers;
     private MotorControllerGroup rightSpeedControllers;
 
-    private DifferentialDrive differentialDrive;
+    private double distance;
+    private long timeStamp;
 
     public DriveSubsystem() {
         leftSpark1 = new CANSparkMax(leftID1, CANSparkMaxLowLevel.MotorType.kBrushless);
@@ -30,14 +31,42 @@ public class DriveSubsystem extends SubsystemBase {
         rightSpeedControllers = new MotorControllerGroup(rightSpark1, rightSpark2);
 
         differentialDrive = new DifferentialDrive(leftSpeedControllers, rightSpeedControllers);
+
+        this.leftSpark1.getEncoder().setVelocityConversionFactor((Math.PI * WHEEL_DIAMETER) / 60);
+        this.leftSpark2.getEncoder().setVelocityConversionFactor((Math.PI * WHEEL_DIAMETER) / 60);
+        this.rightSpark1.getEncoder().setVelocityConversionFactor((Math.PI * WHEEL_DIAMETER) / 60);
+        this.rightSpark2.getEncoder().setVelocityConversionFactor((Math.PI * WHEEL_DIAMETER) / 60);
+
+        this.distance = 0;
     }
 
+    private DifferentialDrive differentialDrive;
+
     public DifferentialDrive getDiffDrive(){
+
         return differentialDrive;
     }
 
+
+
     public void periodic() {
-        // This method will be called once per scheduler run
+        if(timeStamp != 0) {
+            double deltaTime = System.currentTimeMillis() - timeStamp;
+
+            double deltaDistance = 0;
+
+            this.leftSpark1.getEncoder().getVelocity();
+            this.leftSpark2.getEncoder().getVelocity();
+            this.rightSpark1.getEncoder().getVelocity();
+            this.rightSpark2.getEncoder().getVelocity();
+
+            distance += deltaDistance;
+        }
+        timeStamp = System.currentTimeMillis();
+    }
+
+    public double getDistance(){
+        return distance;
     }
 
     @Override

@@ -36,7 +36,7 @@ public class Robot extends TimedRobot
         // autonomous chooser on the dashboard.
         robotContainer = new RobotContainer();
         CommandScheduler.getInstance().setDefaultCommand(robotContainer.getDriveSubsystem(), robotContainer.getJoystickDrive());
-        CommandScheduler.getInstance().setDefaultCommand(robotContainer.getElevatorSubsystem(), robotContainer.getElevatorCommand());
+//        CommandScheduler.getInstance().setDefaultCommand(robotContainer.getElevatorSubsystem(), robotContainer.getElevatorCommand());
     }
     
     

@@ -30,5 +30,7 @@ public final class Constants {
     public static final double intakeSpeed = 0.3;
     public static final double elevatorSpeed = 0.3;
 
+    public static final double WHEEL_DIAMETER = 6;
+
     public static final String cameraName = "5826gloworm";
 }
