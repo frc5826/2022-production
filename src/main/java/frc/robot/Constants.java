@@ -32,5 +32,8 @@ public final class Constants {
 
     public static final double WHEEL_DIAMETER = 6;
 
+    public static final double DRIVE_GEAR_RATIO = 12.5;
+    //TODO internet says 12.75 but 12.5 works better
+
     public static final String cameraName = "5826gloworm";
 }

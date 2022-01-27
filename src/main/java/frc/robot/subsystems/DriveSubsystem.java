@@ -5,6 +5,7 @@ import com.revrobotics.CANSparkMaxLowLevel;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 import static frc.robot.Constants.*;
 
@@ -32,10 +33,10 @@ public class DriveSubsystem extends SubsystemBase {
 
         differentialDrive = new DifferentialDrive(leftSpeedControllers, rightSpeedControllers);
 
-        this.leftSpark1.getEncoder().setVelocityConversionFactor((Math.PI * WHEEL_DIAMETER) / 60);
-        this.leftSpark2.getEncoder().setVelocityConversionFactor((Math.PI * WHEEL_DIAMETER) / 60);
-        this.rightSpark1.getEncoder().setVelocityConversionFactor((Math.PI * WHEEL_DIAMETER) / 60);
-        this.rightSpark2.getEncoder().setVelocityConversionFactor((Math.PI * WHEEL_DIAMETER) / 60);
+        this.leftSpark1.getEncoder().setVelocityConversionFactor((Math.PI * WHEEL_DIAMETER) / (60 * DRIVE_GEAR_RATIO));
+        this.leftSpark2.getEncoder().setVelocityConversionFactor((Math.PI * WHEEL_DIAMETER) / (60 * DRIVE_GEAR_RATIO));
+        this.rightSpark1.getEncoder().setVelocityConversionFactor((Math.PI * WHEEL_DIAMETER) / (60 * DRIVE_GEAR_RATIO));
+        this.rightSpark2.getEncoder().setVelocityConversionFactor((Math.PI * WHEEL_DIAMETER) / (60 * DRIVE_GEAR_RATIO));
 
         this.distance = 0;
     }
@@ -48,21 +49,31 @@ public class DriveSubsystem extends SubsystemBase {
     }
 
 
-
     public void periodic() {
         if(timeStamp != 0) {
             double deltaTime = System.currentTimeMillis() - timeStamp;
 
-            double deltaDistance = 0;
+            double l1 = this.leftSpark1.getEncoder().getVelocity() * -1;
+            double l2 = this.leftSpark2.getEncoder().getVelocity() * -1;
+            double r1 = this.rightSpark1.getEncoder().getVelocity() * -1;
+            double r2 = this.rightSpark2.getEncoder().getVelocity() * -1;
 
-            this.leftSpark1.getEncoder().getVelocity();
-            this.leftSpark2.getEncoder().getVelocity();
-            this.rightSpark1.getEncoder().getVelocity();
-            this.rightSpark2.getEncoder().getVelocity();
+            double currentVelocity = (l1 + l2 + r1 + r2) / 4;
+
+            double deltaDistance = (deltaTime * currentVelocity) / 1000;
 
             distance += deltaDistance;
+
         }
         timeStamp = System.currentTimeMillis();
+        if(Constants.joystick.getRawButton(1)){
+            resetDistance();
+        }
+
+    }
+
+    public void resetDistance(){
+        distance = 0;
     }
 
     public double getDistance(){
