@@ -66,7 +66,7 @@ public class DriveSubsystem extends SubsystemBase {
 
         }
         timeStamp = System.currentTimeMillis();
-        if(Constants.joystick.getRawButton(1)){
+        if(Constants.joystick.getRawButton(2)){
             resetDistance();
         }
 
