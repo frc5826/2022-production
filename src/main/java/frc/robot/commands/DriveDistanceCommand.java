@@ -8,46 +8,54 @@ public class DriveDistanceCommand extends CommandBase {
 
     private final double distanceInches;
     private final DriveSubsystem driveSubsystem;
-    private double startDistance;
-    private PIDController pid;
+    private double leftTargetDist;
+    private double rightTargetDist;
 
     private int count = 0;
 
     public DriveDistanceCommand(double distanceInches, DriveSubsystem driveSubsystem) {
         this.distanceInches = distanceInches;
         this.driveSubsystem = driveSubsystem;
-        this.pid = new PIDController(.01, 0, 0);
         addRequirements(driveSubsystem);
     }
 
     @Override
     public void initialize() {
-        this.startDistance = driveSubsystem.getDistance();
-        this.pid.setSetpoint(driveSubsystem.getDistance() + this.distanceInches);
+        leftTargetDist = driveSubsystem.getLeftPosition() + distanceInches;
+        rightTargetDist = driveSubsystem.getRightPosition() + distanceInches;
     }
 
     @Override
     public void execute() {
-        double PIDSpeed = this.pid.calculate(driveSubsystem.getDistance());
-        double speed = -1 * (Math.min(Math.max(PIDSpeed, .1), .3));
-        this.driveSubsystem.getDiffDrive().curvatureDrive(speed, 0, true);
+
+        driveSubsystem.setLeftPosition(leftTargetDist);
+        driveSubsystem.setRightPosition(rightTargetDist);
+
+        if(count++ % 10 == 0){
+            System.out.println("Left Position: " + driveSubsystem.getLeftPosition());
+            System.out.println("Left Target: " + leftTargetDist);
+            System.out.println();
+            System.out.println("Right Position: " + driveSubsystem.getRightPosition());
+            System.out.println("Right Target: " + rightTargetDist);
+            System.out.println();
+            System.out.println();
 
 
-        System.out.println("Distance: " + driveSubsystem.getDistance());
-        System.out.println("Target: " + this.distanceInches);
-        System.out.println("PID Recommended Speed: " + PIDSpeed);
-        System.out.println("Given Speed: " + speed);
-        System.out.println("isFinished: " + Math.abs(this.driveSubsystem.getDistance() - (this.startDistance + this.distanceInches)));
+        }
+
     }
 
     @Override
     public void end(boolean interrupted) {
-        this.driveSubsystem.getDiffDrive().arcadeDrive(0, 0);
+        this.driveSubsystem.setVelocity(0);
         super.end(interrupted);
     }
 
     @Override
     public boolean isFinished() {
-        return Math.abs(this.driveSubsystem.getDistance() - (this.startDistance + this.distanceInches)) < 5;
+        boolean leftClose = Math.abs(driveSubsystem.getLeftPosition() - leftTargetDist) < 1;
+        boolean rightClose = Math.abs(driveSubsystem.getRightPosition() - rightTargetDist) < 1;
+
+        return leftClose || rightClose;
     }
 }

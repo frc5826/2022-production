@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import com.revrobotics.ControlType;
 
 import static frc.robot.Constants.*;
 
@@ -16,11 +17,10 @@ public class DriveSubsystem extends SubsystemBase {
     private CANSparkMax rightSpark1;
     private CANSparkMax rightSpark2;
 
-    private MotorControllerGroup leftSpeedControllers;
-    private MotorControllerGroup rightSpeedControllers;
-
     private double distance;
     private long timeStamp;
+
+    private int count = 0;
 
     public DriveSubsystem() {
         leftSpark1 = new CANSparkMax(leftID1, CANSparkMaxLowLevel.MotorType.kBrushless);
@@ -28,15 +28,27 @@ public class DriveSubsystem extends SubsystemBase {
         rightSpark1 = new CANSparkMax(rightID1, CANSparkMaxLowLevel.MotorType.kBrushless);
         rightSpark2 = new CANSparkMax(rightID2, CANSparkMaxLowLevel.MotorType.kBrushless);
 
-        leftSpeedControllers = new MotorControllerGroup(leftSpark1, leftSpark2);
-        rightSpeedControllers = new MotorControllerGroup(rightSpark1, rightSpark2);
+        this.leftSpark1.getPIDController().setP(DRIVE_P);
+        this.leftSpark1.getPIDController().setI(DRIVE_I);
+        this.leftSpark1.getPIDController().setD(DRIVE_D);
+        this.leftSpark1.getPIDController().setOutputRange(-PEAK_OUTPUT, PEAK_OUTPUT);
 
-        differentialDrive = new DifferentialDrive(leftSpeedControllers, rightSpeedControllers);
+        this.rightSpark1.getPIDController().setP(DRIVE_P);
+        this.rightSpark1.getPIDController().setI(DRIVE_I);
+        this.rightSpark1.getPIDController().setD(DRIVE_D);
+        this.rightSpark1.getPIDController().setOutputRange(-PEAK_OUTPUT, PEAK_OUTPUT);
+
+        leftSpark2.follow(leftSpark1);
+        rightSpark2.follow(rightSpark1);
+
+
+        differentialDrive = new DifferentialDrive(leftSpark1, rightSpark1);
 
         this.leftSpark1.getEncoder().setVelocityConversionFactor((Math.PI * WHEEL_DIAMETER) / (60 * DRIVE_GEAR_RATIO));
-        this.leftSpark2.getEncoder().setVelocityConversionFactor((Math.PI * WHEEL_DIAMETER) / (60 * DRIVE_GEAR_RATIO));
         this.rightSpark1.getEncoder().setVelocityConversionFactor((Math.PI * WHEEL_DIAMETER) / (60 * DRIVE_GEAR_RATIO));
-        this.rightSpark2.getEncoder().setVelocityConversionFactor((Math.PI * WHEEL_DIAMETER) / (60 * DRIVE_GEAR_RATIO));
+
+        this.leftSpark1.getEncoder().setPositionConversionFactor((Math.PI * WHEEL_DIAMETER) / (DRIVE_GEAR_RATIO));
+        this.rightSpark1.getEncoder().setPositionConversionFactor((Math.PI * WHEEL_DIAMETER) / (DRIVE_GEAR_RATIO));
 
         this.distance = 0;
     }
@@ -62,6 +74,10 @@ public class DriveSubsystem extends SubsystemBase {
 
             double deltaDistance = (deltaTime * currentVelocity) / 1000;
 
+            if(count++ % 40 == 0) {
+                //System.out.println(leftSpark1.getEncoder().getPosition());
+            }
+
             distance += deltaDistance;
 
         }
@@ -72,12 +88,33 @@ public class DriveSubsystem extends SubsystemBase {
 
     }
 
+    public void setVelocity(double mps) {
+        this.leftSpark1.getPIDController().setReference(mps, ControlType.kVelocity);
+        this.rightSpark1.getPIDController().setReference(mps, ControlType.kVelocity);
+    }
+
     public void resetDistance(){
         distance = 0;
     }
 
     public double getDistance(){
         return distance;
+    }
+
+    public double getLeftPosition(){
+        return leftSpark1.getEncoder().getPosition();
+    }
+
+    public double getRightPosition(){
+        return rightSpark1.getEncoder().getPosition();
+    }
+
+    public void setLeftPosition(double position){
+        leftSpark1.getPIDController().setReference(position, CANSparkMax.ControlType.kPosition);
+    }
+
+    public void setRightPosition(double position){
+        rightSpark1.getPIDController().setReference(position, CANSparkMax.ControlType.kPosition);
     }
 
     @Override

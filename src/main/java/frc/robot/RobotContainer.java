@@ -43,7 +43,7 @@ public class RobotContainer
 //        sensorSubsystem = new SensorSubsystem(-1,-1, true);
         driveSubsystem = new DriveSubsystem();
         joystickDriveCommand = new JoystickDriveCommand(driveSubsystem);
-        driveDistanceCommand = new DriveDistanceCommand(96, driveSubsystem);
+        driveDistanceCommand = new DriveDistanceCommand(-60, driveSubsystem);
 //        chaseCommand = new ChaseCommand(sensorSubsystem, driveSubsystem);
 
 //        intakeSubsystem = new IntakeSubsystem(Constants.IntakeID);
