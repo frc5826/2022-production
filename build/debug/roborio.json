@@ -1,9 +1,0 @@
-[
-  {
-    "type": "java",
-    "name": "frcJava",
-    "port": 8349,
-    "target": "10.58.26.2",
-    "project": "2022-production"
-  }
-]
