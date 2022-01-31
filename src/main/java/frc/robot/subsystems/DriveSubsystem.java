@@ -17,6 +17,9 @@ public class DriveSubsystem extends SubsystemBase {
     private CANSparkMax rightSpark1;
     private CANSparkMax rightSpark2;
 
+    private MotorControllerGroup leftSpeedControllers;
+    private MotorControllerGroup rightSpeedControllers;
+
     private double distance;
     private long timeStamp;
 
@@ -28,27 +31,44 @@ public class DriveSubsystem extends SubsystemBase {
         rightSpark1 = new CANSparkMax(rightID1, CANSparkMaxLowLevel.MotorType.kBrushless);
         rightSpark2 = new CANSparkMax(rightID2, CANSparkMaxLowLevel.MotorType.kBrushless);
 
+        leftSpeedControllers = new MotorControllerGroup(leftSpark1, leftSpark2);
+        rightSpeedControllers = new MotorControllerGroup(rightSpark1, rightSpark2);
+
         this.leftSpark1.getPIDController().setP(DRIVE_P);
         this.leftSpark1.getPIDController().setI(DRIVE_I);
         this.leftSpark1.getPIDController().setD(DRIVE_D);
         this.leftSpark1.getPIDController().setOutputRange(-PEAK_OUTPUT, PEAK_OUTPUT);
+
+        this.leftSpark2.getPIDController().setP(DRIVE_P);
+        this.leftSpark2.getPIDController().setI(DRIVE_I);
+        this.leftSpark2.getPIDController().setD(DRIVE_D);
+        this.leftSpark2.getPIDController().setOutputRange(-PEAK_OUTPUT, PEAK_OUTPUT);
 
         this.rightSpark1.getPIDController().setP(DRIVE_P);
         this.rightSpark1.getPIDController().setI(DRIVE_I);
         this.rightSpark1.getPIDController().setD(DRIVE_D);
         this.rightSpark1.getPIDController().setOutputRange(-PEAK_OUTPUT, PEAK_OUTPUT);
 
-        leftSpark2.follow(leftSpark1);
-        rightSpark2.follow(rightSpark1);
+        this.rightSpark2.getPIDController().setP(DRIVE_P);
+        this.rightSpark2.getPIDController().setI(DRIVE_I);
+        this.rightSpark2.getPIDController().setD(DRIVE_D);
+        this.rightSpark2.getPIDController().setOutputRange(-PEAK_OUTPUT, PEAK_OUTPUT);
 
+//        leftSpark2.follow(leftSpark1);
+//        rightSpark2.follow(rightSpark1);
 
-        differentialDrive = new DifferentialDrive(leftSpark1, rightSpark1);
+        differentialDrive = new DifferentialDrive(leftSpeedControllers, rightSpeedControllers);
+//        differentialDrive = new DifferentialDrive(leftSpark1, rightSpark1);
 
         this.leftSpark1.getEncoder().setVelocityConversionFactor((Math.PI * WHEEL_DIAMETER) / (60 * DRIVE_GEAR_RATIO));
+        this.leftSpark2.getEncoder().setVelocityConversionFactor((Math.PI * WHEEL_DIAMETER) / (60 * DRIVE_GEAR_RATIO));
         this.rightSpark1.getEncoder().setVelocityConversionFactor((Math.PI * WHEEL_DIAMETER) / (60 * DRIVE_GEAR_RATIO));
+        this.rightSpark2.getEncoder().setVelocityConversionFactor((Math.PI * WHEEL_DIAMETER) / (60 * DRIVE_GEAR_RATIO));
 
         this.leftSpark1.getEncoder().setPositionConversionFactor((Math.PI * WHEEL_DIAMETER) / (DRIVE_GEAR_RATIO));
+        this.leftSpark2.getEncoder().setPositionConversionFactor((Math.PI * WHEEL_DIAMETER) / (DRIVE_GEAR_RATIO));
         this.rightSpark1.getEncoder().setPositionConversionFactor((Math.PI * WHEEL_DIAMETER) / (DRIVE_GEAR_RATIO));
+        this.rightSpark2.getEncoder().setPositionConversionFactor((Math.PI * WHEEL_DIAMETER) / (DRIVE_GEAR_RATIO));
 
         this.distance = 0;
     }

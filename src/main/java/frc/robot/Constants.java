@@ -41,5 +41,7 @@ public final class Constants {
     public static final double DRIVE_I = 0.0;
     public static final double DRIVE_D = 0.0;
 
-    public static final double PEAK_OUTPUT = 0.5;
+    public static final double PEAK_OUTPUT = 0.25;
+
+    public static final double ROBOT_RADIUS = 13.5;
 }
