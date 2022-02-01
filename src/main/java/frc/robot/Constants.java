@@ -42,7 +42,7 @@ public final class Constants {
     public static final double DRIVE_I = 0.0;
     public static final double DRIVE_D = 0.0;
 
-    public static final double PEAK_OUTPUT = 0.5;
+    public static final double PEAK_OUTPUT = 0.25;
 
     public static final double kShooterPeakOutput = 0.90;
 
@@ -55,4 +55,6 @@ public final class Constants {
     public static final int kPIDLoopIdx = 0;
 
     public static final int kTimeoutMs = 30;
+    
+    public static final double ROBOT_RADIUS = 13.5;
 }
