@@ -6,6 +6,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Subsystem;
@@ -33,7 +34,8 @@ public class RobotContainer
     private final TestCommandGroup testCommandGroup;
 //    private final ChaseCommand chaseCommand;
 
-   // private final IntakeSubsystem intakeSubsystem;
+    private final IntakeSubsystem intakeSubsystem;
+    private final TestEncoderCommand testEncoderCommand;
 
     private final ElevatorSubsystem elevatorSubsystem;
     private final ElevatorControllerCommand elevatorControllerCommand;
@@ -50,7 +52,9 @@ public class RobotContainer
         testCommandGroup = new TestCommandGroup(driveSubsystem);
 //        chaseCommand = new ChaseCommand(sensorSubsystem, driveSubsystem);
 
-//        intakeSubsystem = new IntakeSubsystem(Constants.IntakeID);
+        intakeSubsystem = new IntakeSubsystem();
+        testEncoderCommand = new TestEncoderCommand(intakeSubsystem);
+
 
         elevatorSubsystem = new ElevatorSubsystem(Constants.ElevatorID);
         elevatorControllerCommand = new ElevatorControllerCommand(elevatorSubsystem);
@@ -71,7 +75,9 @@ public class RobotContainer
         // See https://docs.wpilib.org/en/stable/docs/software/commandbased/binding-commands-to-triggers.html
         //- Create a JoystickButton and pass it our joystick and the button number.
         JoystickButton trigger = new JoystickButton(Constants.joystick, 1);
+        JoystickButton button5 = new JoystickButton(Constants.joystick, 5);
         //- You can now tie commands to actions of that button. Some examples (not exhaustive) below...
+        button5.whenPressed(testEncoderCommand);
         trigger.whenPressed(testCommandGroup);
         //button.whenPressed(new SomeCommand());
         //button.whenReleased(new SomeCommand());
