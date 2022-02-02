@@ -21,8 +21,8 @@ public class IntakeSubsystem extends SubsystemBase {
 
         List<TalonSRX> talonSRXES = Arrays.asList(this.leftTalon);
 
-        for(TalonSRX t : talonSRXES){
-            t.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder,
+        for (TalonSRX t : talonSRXES) {
+            t.configSelectedFeedbackSensor(FeedbackDevice.PulseWidthEncodedPosition,
                     kPIDLoopIdx,
                     kTimeoutMs);
 
@@ -36,7 +36,7 @@ public class IntakeSubsystem extends SubsystemBase {
         }
     }
 
-    public TalonSRX getLeftTalon(){
+    public TalonSRX getLeftTalon() {
         return leftTalon;
     }
 
@@ -44,9 +44,14 @@ public class IntakeSubsystem extends SubsystemBase {
 //        return rightTalon;
 //    }
 
-    public void setPosition(double position){
+    public void setPosition(double position) {
         leftTalon.set(TalonSRXControlMode.Position, position);
         //rightTalon.set(TalonSRXControlMode.Position, position);
+    }
+
+    public void periodic() {
+        getLeftTalon().set(TalonSRXControlMode.Position, 0);
+        System.out.println(getLeftTalon().getSelectedSensorPosition());
     }
 
 }

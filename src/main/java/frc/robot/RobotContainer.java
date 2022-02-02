@@ -86,7 +86,7 @@ public class RobotContainer
         //- You can now tie commands to actions of that button. Some examples (not exhaustive) below...
         trigger.whenPressed(testCommandGroupTwo);
         button5.whenPressed(turnAngleCommand);
-        button6.whenPressed(testEncoderCommand);
+        button6.whileHeld(testEncoderCommand);
         //button.whenPressed(new SomeCommand());
         //button.whenReleased(new SomeCommand());
         //- When creating these bindings, think through if you want a new command or want to reuse an existing one.

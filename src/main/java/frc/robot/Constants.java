@@ -23,7 +23,7 @@ public final class Constants {
     public static final int leftID2 = 4;
     public static final int rightID1 = 7;
     public static final int rightID2 = 8;
-    public static final int leftTalonIntakeID = -1;
+    public static final int leftTalonIntakeID = 5;
     public static final int rightTalonIntakeID = -1;
     public static final int ElevatorID = 0;
 
@@ -46,9 +46,9 @@ public final class Constants {
 
     public static final double kShooterPeakOutput = 0.90;
 
-    public static final double kShooterP = 0.25;
-    public static final double kShooterI = 0.001;
-    public static final double kShooterD = 20;
+    public static final double kShooterP = 1;
+    public static final double kShooterI = 0;
+    public static final double kShooterD = 0;
 
     public static final double kRampRate = 0.3;
 
