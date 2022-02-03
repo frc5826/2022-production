@@ -51,7 +51,7 @@ public class IntakeSubsystem extends SubsystemBase {
 
     public void periodic() {
         getLeftTalon().set(TalonSRXControlMode.Position, 0);
-        System.out.println(getLeftTalon().getSelectedSensorPosition());
+        //System.out.println(getLeftTalon().getSelectedSensorPosition());
     }
 
 }
