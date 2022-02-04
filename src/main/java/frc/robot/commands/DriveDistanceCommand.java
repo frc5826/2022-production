@@ -14,7 +14,7 @@ public class DriveDistanceCommand extends CommandBase {
     private int count = 0;
 
     public DriveDistanceCommand(double distanceInches, DriveSubsystem driveSubsystem) {
-        this.distanceInches = distanceInches;
+        this.distanceInches = -distanceInches;
         this.driveSubsystem = driveSubsystem;
         addRequirements(driveSubsystem);
     }
@@ -31,6 +31,7 @@ public class DriveDistanceCommand extends CommandBase {
         driveSubsystem.setLeftPosition(leftTargetDist);
         driveSubsystem.setRightPosition(rightTargetDist);
 
+        System.out.println(driveSubsystem.getMotorPower());
     }
 
     @Override

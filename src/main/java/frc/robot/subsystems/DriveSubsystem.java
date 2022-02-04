@@ -7,7 +7,6 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import com.revrobotics.ControlType;
 
 import static frc.robot.Constants.*;
 
@@ -41,6 +40,9 @@ public class DriveSubsystem extends SubsystemBase {
         leftSpark2.restoreFactoryDefaults();
         rightSpark1.restoreFactoryDefaults();
         rightSpark2.restoreFactoryDefaults();
+
+        leftSpark1.setInverted(true);
+        leftSpark2.setInverted(true);
 
         leftSpark1_PID = leftSpark1.getPIDController();
         leftSpark2_PID = leftSpark2.getPIDController();
@@ -124,8 +126,8 @@ public class DriveSubsystem extends SubsystemBase {
     }
 
     public void setVelocity(double mps) {
-        this.leftSpark1_PID.setReference(mps, ControlType.kVelocity);
-        this.rightSpark1_PID.setReference(mps, ControlType.kVelocity);
+        this.leftSpark1_PID.setReference(mps, CANSparkMax.ControlType.kVelocity);
+        this.rightSpark1_PID.setReference(mps, CANSparkMax.ControlType.kVelocity);
     }
 
     public void resetDistance(){
@@ -150,6 +152,17 @@ public class DriveSubsystem extends SubsystemBase {
 
     public void setRightPosition(double position){
         rightSpark1_PID.setReference(position, CANSparkMax.ControlType.kPosition);
+    }
+
+    public double getMotorPower(){
+        return leftSpark1.getAppliedOutput();
+    }
+
+    public void setSpeedOutputRange(double min, double max){
+        leftSpark1_PID.setOutputRange(min, max);
+        leftSpark2_PID.setOutputRange(min, max);
+        rightSpark1_PID.setOutputRange(min, max);
+        rightSpark2_PID.setOutputRange(min, max);
     }
 
     @Override

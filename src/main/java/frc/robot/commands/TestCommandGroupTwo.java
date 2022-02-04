@@ -6,9 +6,8 @@ import frc.robot.subsystems.DriveSubsystem;
 public class TestCommandGroupTwo extends SequentialCommandGroup {
     public TestCommandGroupTwo(DriveSubsystem driveSubsystem){
         addCommands(
-                new DriveDistanceCommand(-120, driveSubsystem),
-                new TurnAngleCommand(180, driveSubsystem),
-                new DriveDistanceCommand(-120, driveSubsystem)
+                new DriveDistanceCommand(60, driveSubsystem),
+                new TurnAngleCommand(180, driveSubsystem)
         );
     }
 }

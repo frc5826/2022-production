@@ -21,6 +21,7 @@ public class TurnAngleCommand extends CommandBase {
 
     @Override
     public void initialize() {
+        driveSubsystem.setSpeedOutputRange(-TURN_PEAK_OUTPUT, TURN_PEAK_OUTPUT);
         leftTargetDist = driveSubsystem.getLeftPosition() + angleToDistance(turnAngle);
         rightTargetDist = driveSubsystem.getRightPosition() - angleToDistance(turnAngle);
     }
@@ -42,6 +43,7 @@ public class TurnAngleCommand extends CommandBase {
     @Override
     public void end(boolean interrupted) {
         this.driveSubsystem.setVelocity(0);
+        driveSubsystem.setSpeedOutputRange(-PEAK_OUTPUT, PEAK_OUTPUT);
         super.end(interrupted);
     }
 
