@@ -31,6 +31,10 @@ public class RobotContainer
     private final JoystickDriveCommand joystickDriveCommand;
     private final DriveDistanceCommand driveDistanceCommand;
     private final TurnAngleCommand turnAngleCommand;
+    private final TurnCommand2 turnCommand2;
+
+    private final BarrySandersCommandGroupLeft barrySandersCommandGroupLeft;
+    private final BarrySandersCommandGroupRight barrySandersCommandGroupRight;
 
     private final TestCommandGroup testCommandGroup;
     private final TestCommandGroupTwo testCommandGroupTwo;
@@ -54,8 +58,11 @@ public class RobotContainer
         testCommandGroup = new TestCommandGroup(driveSubsystem);
         testCommandGroupTwo = new TestCommandGroupTwo(driveSubsystem);
 
+        barrySandersCommandGroupLeft = new BarrySandersCommandGroupLeft(driveSubsystem);
+        barrySandersCommandGroupRight = new BarrySandersCommandGroupRight(driveSubsystem);
 
         turnAngleCommand = new TurnAngleCommand(45, driveSubsystem);
+        turnCommand2 = new TurnCommand2(driveSubsystem, -180);
 //        chaseCommand = new ChaseCommand(sensorSubsystem, driveSubsystem);
 
         //intakeSubsystem = new IntakeSubsystem();
@@ -84,9 +91,9 @@ public class RobotContainer
         JoystickButton button5 = new JoystickButton(Constants.joystick, 5);
         JoystickButton button6 = new JoystickButton(Constants.joystick, 6);
         //- You can now tie commands to actions of that button. Some examples (not exhaustive) below...
-        trigger.whenPressed(testCommandGroupTwo);
-        button5.whenPressed(turnAngleCommand);
-        //button6.whileHeld(testEncoderCommand);
+        trigger.whenPressed(turnCommand2);
+        button5.whenPressed(barrySandersCommandGroupLeft);
+        button6.whenPressed(barrySandersCommandGroupRight);
         //button.whenPressed(new SomeCommand());
         //button.whenReleased(new SomeCommand());
         //- When creating these bindings, think through if you want a new command or want to reuse an existing one.

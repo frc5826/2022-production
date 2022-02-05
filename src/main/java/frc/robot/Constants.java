@@ -5,7 +5,10 @@
 
 package frc.robot;
 
+import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.SPI;
+
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
  * constants. This class should not be used for any other purpose. All constants should be declared
@@ -17,6 +20,8 @@ import edu.wpi.first.wpilibj.Joystick;
 public final class Constants {
 
     public static final Joystick joystick = new Joystick(0);
+
+    public static AHRS gyro = new AHRS(SPI.Port.kMXP);
 
     //TODO Get the correct IDs for the speed controllers
     public static final int leftID1 = 3;
@@ -41,6 +46,10 @@ public final class Constants {
     public static final double DRIVE_P = 0.9;
     public static final double DRIVE_I = 0.0;
     public static final double DRIVE_D = 0.0;
+
+    public static final double GYRO_P = 0.042;
+    public static final double GYRO_I = 0.0;
+    public static final double GYRO_D = 0.01;
 
     public static final double PEAK_OUTPUT = 0.5;
     public static final double TURN_PEAK_OUTPUT = 0.2;

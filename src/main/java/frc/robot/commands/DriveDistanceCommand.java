@@ -30,8 +30,9 @@ public class DriveDistanceCommand extends CommandBase {
 
         driveSubsystem.setLeftPosition(leftTargetDist);
         driveSubsystem.setRightPosition(rightTargetDist);
-
-        System.out.println(driveSubsystem.getMotorPower());
+        if(count++ % 25 == 0) {
+            System.out.println(driveSubsystem.getMotorPower());
+        }
     }
 
     @Override

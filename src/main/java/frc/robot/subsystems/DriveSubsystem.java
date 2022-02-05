@@ -87,6 +87,7 @@ public class DriveSubsystem extends SubsystemBase {
 
         //differentialDrive = new DifferentialDrive(leftSpeedControllers, rightSpeedControllers);
         differentialDrive = new DifferentialDrive(leftSpark1, rightSpark1);
+        differentialDrive.setSafetyEnabled(false);
         this.distance = 0;
     }
 
