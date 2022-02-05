@@ -3,6 +3,7 @@ package frc.robot.commands;
 import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.IntakeSubsystem;
+import org.w3c.dom.ls.LSOutput;
 
 public class TestEncoderCommand extends CommandBase {
 
@@ -16,15 +17,14 @@ public class TestEncoderCommand extends CommandBase {
 
     @Override
     public void execute() {
-        intakeSubsystem.getLeftTalon().set(TalonSRXControlMode.Position, 8192);
-        if(count++ % 25 == 0){
-            System.out.println(intakeSubsystem.getLeftTalon().getSelectedSensorPosition());
-            //System.out.println(intakeSubsystem.getRightTalon().getSelectedSensorPosition());
-        }
+        intakeSubsystem.getLeftTalon().set(TalonSRXControlMode.Position, intakeSubsystem.getClosedValueLeftIntake() + 3000);
+        intakeSubsystem.getRightTalon().set(TalonSRXControlMode.Position, intakeSubsystem.getClosedValueRightIntake() + 3000);
+
     }
 
     @Override
     public void end(boolean interrupted) {
-        intakeSubsystem.getLeftTalon().set(TalonSRXControlMode.Position, 0);
+        intakeSubsystem.getLeftTalon().set(TalonSRXControlMode.Position, intakeSubsystem.getClosedValueLeftIntake());
+        intakeSubsystem.getRightTalon().set(TalonSRXControlMode.Position, intakeSubsystem.getClosedValueRightIntake());
     }
 }

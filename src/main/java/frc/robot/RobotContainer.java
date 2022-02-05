@@ -27,43 +27,43 @@ import frc.robot.subsystems.SensorSubsystem;
 public class RobotContainer
 {
     // The robot's subsystems and commands are defined here...
-    private final DriveSubsystem driveSubsystem;
-    private final JoystickDriveCommand joystickDriveCommand;
-    private final DriveDistanceCommand driveDistanceCommand;
-    private final TurnAngleCommand turnAngleCommand;
-
-    private final TestCommandGroup testCommandGroup;
-    private final TestCommandGroupTwo testCommandGroupTwo;
+//    private final DriveSubsystem driveSubsystem;
+//    private final JoystickDriveCommand joystickDriveCommand;
+//    private final DriveDistanceCommand driveDistanceCommand;
+//    private final TurnAngleCommand turnAngleCommand;
+//
+//    private final TestCommandGroup testCommandGroup;
+//    private final TestCommandGroupTwo testCommandGroupTwo;
 //    private final ChaseCommand chaseCommand;
 
-    //private final IntakeSubsystem intakeSubsystem;
-    //private final TestEncoderCommand testEncoderCommand;
+    private final IntakeSubsystem intakeSubsystem;
+    private final TestEncoderCommand testEncoderCommand;
 
-    private final ElevatorSubsystem elevatorSubsystem;
-    private final ElevatorControllerCommand elevatorControllerCommand;
+//    private final ElevatorSubsystem elevatorSubsystem;
+//    private final ElevatorControllerCommand elevatorControllerCommand;
 //    private final SensorSubsystem sensorSubsystem;
 
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer()
     {
 //        sensorSubsystem = new SensorSubsystem(-1,-1, true);
-        driveSubsystem = new DriveSubsystem();
-        joystickDriveCommand = new JoystickDriveCommand(driveSubsystem);
-        driveDistanceCommand = new DriveDistanceCommand(-60, driveSubsystem);
-
-        testCommandGroup = new TestCommandGroup(driveSubsystem);
-        testCommandGroupTwo = new TestCommandGroupTwo(driveSubsystem);
-
-
-        turnAngleCommand = new TurnAngleCommand(45, driveSubsystem);
+//        driveSubsystem = new DriveSubsystem();
+//        joystickDriveCommand = new JoystickDriveCommand(driveSubsystem);
+//        driveDistanceCommand = new DriveDistanceCommand(-60, driveSubsystem);
+//
+//        testCommandGroup = new TestCommandGroup(driveSubsystem);
+//        testCommandGroupTwo = new TestCommandGroupTwo(driveSubsystem);
+//
+//
+//        turnAngleCommand = new TurnAngleCommand(45, driveSubsystem);
 //        chaseCommand = new ChaseCommand(sensorSubsystem, driveSubsystem);
 
-        //intakeSubsystem = new IntakeSubsystem();
-        //testEncoderCommand = new TestEncoderCommand(intakeSubsystem);
+        intakeSubsystem = new IntakeSubsystem();
+        testEncoderCommand = new TestEncoderCommand(intakeSubsystem);
 
 
-        elevatorSubsystem = new ElevatorSubsystem(Constants.ElevatorID);
-        elevatorControllerCommand = new ElevatorControllerCommand(elevatorSubsystem);
+//        elevatorSubsystem = new ElevatorSubsystem(Constants.ElevatorID);
+//        elevatorControllerCommand = new ElevatorControllerCommand(elevatorSubsystem);
         // Configure the button bindings
         configureButtonBindings();
     }
@@ -84,9 +84,9 @@ public class RobotContainer
         JoystickButton button5 = new JoystickButton(Constants.joystick, 5);
         JoystickButton button6 = new JoystickButton(Constants.joystick, 6);
         //- You can now tie commands to actions of that button. Some examples (not exhaustive) below...
-        trigger.whenPressed(testCommandGroupTwo);
-        button5.whenPressed(turnAngleCommand);
-        //button6.whileHeld(testEncoderCommand);
+//        trigger.whenPressed(testCommandGroupTwo);
+//        button5.whenPressed(turnAngleCommand);
+        button6.whileHeld(testEncoderCommand);
         //button.whenPressed(new SomeCommand());
         //button.whenReleased(new SomeCommand());
         //- When creating these bindings, think through if you want a new command or want to reuse an existing one.
@@ -99,21 +99,23 @@ public class RobotContainer
      * @return the command to run in autonomous
      */
 
-    public Subsystem getDriveSubsystem(){
-        return driveSubsystem;
+//    public Subsystem getDriveSubsystem(){
+//        return driveSubsystem;
+//    }
+//
+//    public Command getJoystickDrive() {
+//        return joystickDriveCommand;
+//    }
+//
+//    public Subsystem getElevatorSubsystem() {
+//        return elevatorSubsystem;
+//    }
+//
+//    public Command getElevatorCommand() {
+//        return elevatorControllerCommand;
+//    }
+    public IntakeSubsystem getIntakeSubsystem() {
+        return intakeSubsystem;
     }
-
-    public Command getJoystickDrive() {
-        return joystickDriveCommand;
-    }
-
-    public Subsystem getElevatorSubsystem() {
-        return elevatorSubsystem;
-    }
-
-    public Command getElevatorCommand() {
-        return elevatorControllerCommand;
-    }
-
 //    public Command getChaseCommand() { return chaseCommand;}
 }
