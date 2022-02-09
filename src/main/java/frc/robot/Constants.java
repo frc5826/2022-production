@@ -58,4 +58,8 @@ public final class Constants {
     public static final int kTimeoutMs = 30;
     
     public static final double ROBOT_RADIUS = 13.5;
+
+    public static final double INTAKE_SLOW = 0.2;
+
+    public static final double INTAKE_FAST = 0.3;
 }

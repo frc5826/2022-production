@@ -27,7 +27,12 @@ public class IntakeSubsystem extends SubsystemBase {
     public IntakeSubsystem() {
         this.leftTalon = new TalonSRX(leftTalonIntakeID);
         this.rightTalon = new TalonSRX(rightTalonIntakeID);
-        //this.rightTalon = new TalonSRX(rightTalonIntakeID);
+        this.leftTalon.setInverted(true);
+
+        this.leftTalon.configPeakOutputForward(INTAKE_SLOW);
+        this.leftTalon.configPeakOutputReverse(INTAKE_FAST);
+        this.rightTalon.configPeakOutputForward(INTAKE_FAST);
+        this.rightTalon.configPeakOutputReverse(INTAKE_SLOW);
 
         List<TalonSRX> talonSRXES = Arrays.asList(this.leftTalon, this.rightTalon);
 
