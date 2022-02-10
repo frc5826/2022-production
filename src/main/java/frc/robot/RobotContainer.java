@@ -12,10 +12,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.*;
-import frc.robot.subsystems.DriveSubsystem;
-import frc.robot.subsystems.ElevatorSubsystem;
-import frc.robot.subsystems.IntakeSubsystem;
-import frc.robot.subsystems.SensorSubsystem;
+import frc.robot.subsystems.*;
 
 
 /**
@@ -45,6 +42,10 @@ public class RobotContainer
 
     private final ElevatorSubsystem elevatorSubsystem;
     private final ElevatorControllerCommand elevatorControllerCommand;
+
+    private final ClimbSubsystem climbSubsystem;
+    private final RaisePneumatics raisePneumatics;
+    private final LowerPneumatics lowerPneumatics;
 //    private final SensorSubsystem sensorSubsystem;
 
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -63,6 +64,11 @@ public class RobotContainer
 
         turnAngleCommand = new TurnAngleCommand(45, driveSubsystem);
         turnCommand2 = new TurnCommand2(driveSubsystem, -180);
+
+        climbSubsystem = new ClimbSubsystem();
+        raisePneumatics = new RaisePneumatics(climbSubsystem);
+        lowerPneumatics = new LowerPneumatics(climbSubsystem);
+
 //        chaseCommand = new ChaseCommand(sensorSubsystem, driveSubsystem);
 
         //intakeSubsystem = new IntakeSubsystem();
@@ -88,10 +94,14 @@ public class RobotContainer
         // See https://docs.wpilib.org/en/stable/docs/software/commandbased/binding-commands-to-triggers.html
         //- Create a JoystickButton and pass it our joystick and the button number.
         JoystickButton trigger = new JoystickButton(Constants.joystick, 1);
+        JoystickButton button3 = new JoystickButton(Constants.joystick, 3);
+        JoystickButton button4 = new JoystickButton(Constants.joystick, 4);
         JoystickButton button5 = new JoystickButton(Constants.joystick, 5);
         JoystickButton button6 = new JoystickButton(Constants.joystick, 6);
         //- You can now tie commands to actions of that button. Some examples (not exhaustive) below...
         trigger.whenPressed(turnCommand2);
+        button3.whenPressed(raisePneumatics);
+        button4.whenPressed(lowerPneumatics);
         button5.whenPressed(barrySandersCommandGroupLeft);
         button6.whenPressed(barrySandersCommandGroupRight);
         //button.whenPressed(new SomeCommand());

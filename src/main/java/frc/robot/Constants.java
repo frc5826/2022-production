@@ -67,4 +67,9 @@ public final class Constants {
     public static final int kTimeoutMs = 30;
     
     public static final double ROBOT_RADIUS = 13.5;
+
+    public static final int Compressor = 11;
+
+    public static final int armFWD = 1;
+    public static final int armREV = 0;
 }
