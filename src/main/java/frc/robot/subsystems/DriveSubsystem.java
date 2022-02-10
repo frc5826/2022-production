@@ -1,4 +1,5 @@
 package frc.robot.subsystems;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel;
@@ -111,6 +112,8 @@ public class DriveSubsystem extends SubsystemBase {
             double currentVelocity = (l1 + l2 + r1 + r2) / 4;
 
             double deltaDistance = (deltaTime * currentVelocity) / 1000;
+
+            SmartDashboard.putNumber("Left Spark 1 Velocity", l1);
 
             if(count++ % 40 == 0) {
                 //System.out.println(leftSpark1.getEncoder().getPosition());
