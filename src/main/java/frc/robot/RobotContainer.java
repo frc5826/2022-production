@@ -37,7 +37,12 @@ public class RobotContainer
 //    private final ChaseCommand chaseCommand;
 
     private final IntakeSubsystem intakeSubsystem;
-    private final TestEncoderCommand testEncoderCommand;
+    private final ElevatorSubsystem elevatorSubsystem;
+    private final TestEncoderCommand testEncoderCommandClose;
+    private final TestEncoderCommandLimit testEncoderCommandOpen;
+    private final TestEncoderCommand testEncoderCommandHome;
+    private final ElevatorControllerCommand elevatorControllerCommandUp;
+    private final ElevatorControllerCommand elevatorControllerCommandDown;
 
 //    private final ElevatorSubsystem elevatorSubsystem;
 //    private final ElevatorControllerCommand elevatorControllerCommand;
@@ -59,8 +64,13 @@ public class RobotContainer
 //        chaseCommand = new ChaseCommand(sensorSubsystem, driveSubsystem);
 
         intakeSubsystem = new IntakeSubsystem();
-        testEncoderCommand = new TestEncoderCommand(intakeSubsystem);
+        testEncoderCommandClose = new TestEncoderCommand(2048, intakeSubsystem);
+        testEncoderCommandOpen = new TestEncoderCommandLimit(0.314159265359, intakeSubsystem);
+        testEncoderCommandHome = new TestEncoderCommand(3000, intakeSubsystem);
 
+        elevatorSubsystem = new ElevatorSubsystem(0);
+        elevatorControllerCommandDown = new ElevatorControllerCommand(-0.3, elevatorSubsystem);
+        elevatorControllerCommandUp = new ElevatorControllerCommand(0.3, elevatorSubsystem);
 
 //        elevatorSubsystem = new ElevatorSubsystem(Constants.ElevatorID);
 //        elevatorControllerCommand = new ElevatorControllerCommand(elevatorSubsystem);
@@ -81,12 +91,23 @@ public class RobotContainer
         // See https://docs.wpilib.org/en/stable/docs/software/commandbased/binding-commands-to-triggers.html
         //- Create a JoystickButton and pass it our joystick and the button number.
         JoystickButton trigger = new JoystickButton(Constants.joystick, 1);
+        JoystickButton button2 = new JoystickButton(Constants.joystick, 2);
+        JoystickButton button3 = new JoystickButton(Constants.joystick, 3);
+        JoystickButton button4 = new JoystickButton(Constants.joystick, 4);
         JoystickButton button5 = new JoystickButton(Constants.joystick, 5);
         JoystickButton button6 = new JoystickButton(Constants.joystick, 6);
+        JoystickButton button12 = new JoystickButton(Constants.joystick, 12);
         //- You can now tie commands to actions of that button. Some examples (not exhaustive) below...
 //        trigger.whenPressed(testCommandGroupTwo);
 //        button5.whenPressed(turnAngleCommand);
-        button6.whileHeld(testEncoderCommand);
+        button2.whenPressed(testEncoderCommandClose);
+        button3.whenPressed(testEncoderCommandOpen);
+        button12.whenPressed(testEncoderCommandHome);
+
+        button6.whenPressed(elevatorControllerCommandUp);
+        button4.whenPressed(elevatorControllerCommandDown);
+
+//        button6.whileHeld(testEncoderCommand);
         //button.whenPressed(new SomeCommand());
         //button.whenReleased(new SomeCommand());
         //- When creating these bindings, think through if you want a new command or want to reuse an existing one.

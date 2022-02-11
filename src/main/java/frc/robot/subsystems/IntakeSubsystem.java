@@ -15,8 +15,8 @@ public class IntakeSubsystem extends SubsystemBase {
     private final TalonSRX leftTalon;
     private final TalonSRX rightTalon;
 
-    private double closedValueLeftIntake;
-    private double closedValueRightIntake;
+    private double openValueLeftIntake;
+    private double openValueRightIntake;
 
     private int leftInitCount = 0;
     private int rightInitCount = 0;
@@ -27,7 +27,7 @@ public class IntakeSubsystem extends SubsystemBase {
     public IntakeSubsystem() {
         this.leftTalon = new TalonSRX(leftTalonIntakeID);
         this.rightTalon = new TalonSRX(rightTalonIntakeID);
-        this.leftTalon.setInverted(true);
+        this.rightTalon.setInverted(true);
 
         this.leftTalon.configPeakOutputForward(INTAKE_SLOW);
         this.leftTalon.configPeakOutputReverse(INTAKE_FAST);
@@ -68,13 +68,11 @@ public class IntakeSubsystem extends SubsystemBase {
         rightInitDone = false;
     }
 
-    public double getClosedValueLeftIntake() {
-        return closedValueLeftIntake;
+    public double getOpenValueLeftIntake() {
+        return openValueLeftIntake;
     }
 
-    public double getClosedValueRightIntake() {
-        return closedValueRightIntake;
-    }
+    public double getOpenValueRightIntake() {return openValueRightIntake;}
 
     public void periodic() {
 
@@ -85,8 +83,8 @@ public class IntakeSubsystem extends SubsystemBase {
         else if (leftTalon.getMotorOutputVoltage() <= 0.01 && !leftInitDone){
             leftInitDone = true;
             leftTalon.set(TalonSRXControlMode.PercentOutput, 0);
-            closedValueLeftIntake = leftTalon.getSelectedSensorPosition();
-            System.out.println(closedValueLeftIntake);
+            openValueLeftIntake = leftTalon.getSelectedSensorPosition();
+            System.out.println(openValueLeftIntake);
         }
 
         if (rightInitCount <= 50) {
@@ -96,8 +94,8 @@ public class IntakeSubsystem extends SubsystemBase {
         else if (rightTalon.getMotorOutputVoltage() <= 0.01 && !rightInitDone){
             rightInitDone = true;
             rightTalon.set(TalonSRXControlMode.PercentOutput, 0);
-            closedValueRightIntake = rightTalon.getSelectedSensorPosition();
-            System.out.println(closedValueRightIntake);
+            openValueRightIntake = rightTalon.getSelectedSensorPosition();
+            System.out.println(openValueRightIntake);
         }
 
     }
