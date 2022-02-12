@@ -11,11 +11,11 @@ public class TestEncoderCommandLimit extends CommandBase {
     private int count = 0;
     private double intakeMotorPower;
 
-    private int leftInitCount = 0;
-    private int rightInitCount = 0;
+    private int leftTurnCount = 0;
+    private int rightTurnCount = 0;
 
-    private boolean leftInitDone = false;
-    private boolean rightInitDone = false;
+    private boolean leftTurnDone = false;
+    private boolean rightTurnDone = false;
 
     public TestEncoderCommandLimit(double intakeMotorPower, IntakeSubsystem intakeSubsystem) {
         this.intakeSubsystem = intakeSubsystem;
@@ -24,21 +24,21 @@ public class TestEncoderCommandLimit extends CommandBase {
 
     @Override
     public void execute() {
-        if (leftInitCount <= 50) {
+        if (leftTurnCount <= 50) {
             intakeSubsystem.getLeftTalon().set(TalonSRXControlMode.PercentOutput, intakeMotorPower);
-            leftInitCount++;
+            leftTurnCount++;
         }
-        else if (intakeSubsystem.getLeftTalon().getMotorOutputVoltage() <= 0.01 && !leftInitDone){
-            leftInitDone = true;
+        else if (intakeSubsystem.getLeftTalon().getMotorOutputVoltage() <= 0.01 && !leftTurnDone){
+            leftTurnDone = true;
             intakeSubsystem.getLeftTalon().set(TalonSRXControlMode.PercentOutput, 0);
         }
 
-        if (rightInitCount <= 50) {
+        if (rightTurnCount <= 50) {
             intakeSubsystem.getRightTalon().set(TalonSRXControlMode.PercentOutput, intakeMotorPower);
-            rightInitCount++;
+            rightTurnCount++;
         }
-        else if (intakeSubsystem.getRightTalon().getMotorOutputVoltage() <= 0.01 && !rightInitDone){
-            rightInitDone = true;
+        else if (intakeSubsystem.getRightTalon().getMotorOutputVoltage() <= 0.01 && !rightTurnDone){
+            rightTurnDone = true;
             intakeSubsystem.getRightTalon().set(TalonSRXControlMode.PercentOutput, 0);
         }
     }
@@ -46,9 +46,19 @@ public class TestEncoderCommandLimit extends CommandBase {
     @Override
     public void end(boolean interrupted) {
 
+        count = 0;
+        leftTurnCount = 0;
+        rightTurnCount = 0;
 
+        leftTurnDone = false;
+        rightTurnDone = false;
 
 //        intakeSubsystem.getLeftTalon().set(TalonSRXControlMode.Position, intakeSubsystem.getClosedValueLeftIntake());
 //        intakeSubsystem.getRightTalon().set(TalonSRXControlMode.Position, intakeSubsystem.getClosedValueRightIntake());
+    }
+
+    @Override
+    public boolean isFinished() {
+        return leftTurnDone && rightTurnDone;
     }
 }
