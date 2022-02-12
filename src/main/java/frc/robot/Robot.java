@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import frc.robot.commands.JoystickDriveCommand;
+import frc.robot.subsystems.IntakeSubsystem;
 
 
 /**
@@ -35,7 +36,7 @@ public class Robot extends TimedRobot
         // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
         // autonomous chooser on the dashboard.
         robotContainer = new RobotContainer();
-        CommandScheduler.getInstance().setDefaultCommand(robotContainer.getDriveSubsystem(), robotContainer.getJoystickDrive());
+        //CommandScheduler.getInstance().setDefaultCommand(robotContainer.getDriveSubsystem(), robotContainer.getJoystickDrive());
 //        CommandScheduler.getInstance().setDefaultCommand(robotContainer.getElevatorSubsystem(), robotContainer.getElevatorCommand());
     }
     
@@ -71,15 +72,8 @@ public class Robot extends TimedRobot
     @Override
     public void autonomousInit()
     {
-//        autonomousCommand = robotContainer.getAutonomousCommand();
-//
-//        // schedule the autonomous command (example)
-//        if (autonomousCommand != null)
-//        {
-//            autonomousCommand.schedule();
-//        }
+        robotContainer.getIntakeSubsystem().resetInitialize();
     }
-    
     
     /** This method is called periodically during autonomous. */
     @Override

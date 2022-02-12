@@ -24,6 +24,7 @@ import frc.robot.subsystems.*;
 public class RobotContainer
 {
     // The robot's subsystems and commands are defined here...
+
     private final DriveSubsystem driveSubsystem;
     private final JoystickDriveCommand joystickDriveCommand;
     private final DriveDistanceCommand driveDistanceCommand;
@@ -35,23 +36,42 @@ public class RobotContainer
 
     private final TestCommandGroup testCommandGroup;
     private final TestCommandGroupTwo testCommandGroupTwo;
+
+//    private final DriveSubsystem driveSubsystem;
+//    private final JoystickDriveCommand joystickDriveCommand;
+//    private final DriveDistanceCommand driveDistanceCommand;
+//    private final TurnAngleCommand turnAngleCommand;
+//
+//    private final TestCommandGroup testCommandGroup;
+//    private final TestCommandGroupTwo testCommandGroupTwo;
+
 //    private final ChaseCommand chaseCommand;
 
-    //private final IntakeSubsystem intakeSubsystem;
-    //private final TestEncoderCommand testEncoderCommand;
-
+    private final IntakeSubsystem intakeSubsystem;
     private final ElevatorSubsystem elevatorSubsystem;
-    private final ElevatorControllerCommand elevatorControllerCommand;
+
+//    private final ElevatorControllerCommand elevatorControllerCommand;
 
     private final ClimbSubsystem climbSubsystem;
     private final RaisePneumatics raisePneumatics;
     private final LowerPneumatics lowerPneumatics;
+
+    private final TestEncoderCommand testEncoderCommandClose;
+    private final TestEncoderCommandLimit testEncoderCommandOpen;
+    private final TestEncoderCommand testEncoderCommandHome;
+    private final ElevatorControllerCommand elevatorControllerCommandUp;
+    private final ElevatorControllerCommand elevatorControllerCommandDown;
+
+//    private final ElevatorSubsystem elevatorSubsystem;
+//    private final ElevatorControllerCommand elevatorControllerCommand;
+
 //    private final SensorSubsystem sensorSubsystem;
 
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer()
     {
 //        sensorSubsystem = new SensorSubsystem(-1,-1, true);
+
         driveSubsystem = new DriveSubsystem();
         joystickDriveCommand = new JoystickDriveCommand(driveSubsystem);
         driveDistanceCommand = new DriveDistanceCommand(-60, driveSubsystem);
@@ -69,14 +89,17 @@ public class RobotContainer
         raisePneumatics = new RaisePneumatics(climbSubsystem);
         lowerPneumatics = new LowerPneumatics(climbSubsystem);
 
-//        chaseCommand = new ChaseCommand(sensorSubsystem, driveSubsystem);
+        intakeSubsystem = new IntakeSubsystem();
+        testEncoderCommandClose = new TestEncoderCommand(2048, intakeSubsystem);
+        testEncoderCommandOpen = new TestEncoderCommandLimit(0.314159265359, intakeSubsystem);
+        testEncoderCommandHome = new TestEncoderCommand(3000, intakeSubsystem);
 
-        //intakeSubsystem = new IntakeSubsystem();
-        //testEncoderCommand = new TestEncoderCommand(intakeSubsystem);
+        elevatorSubsystem = new ElevatorSubsystem(0);
+        elevatorControllerCommandDown = new ElevatorControllerCommand(-0.3, elevatorSubsystem);
+        elevatorControllerCommandUp = new ElevatorControllerCommand(0.3, elevatorSubsystem);
 
-
-        elevatorSubsystem = new ElevatorSubsystem(Constants.ElevatorID);
-        elevatorControllerCommand = new ElevatorControllerCommand(elevatorSubsystem);
+//        elevatorSubsystem = new ElevatorSubsystem(Constants.ElevatorID);
+//        elevatorControllerCommand = new ElevatorControllerCommand(elevatorSubsystem);
         // Configure the button bindings
         configureButtonBindings();
     }
@@ -94,19 +117,28 @@ public class RobotContainer
         // See https://docs.wpilib.org/en/stable/docs/software/commandbased/binding-commands-to-triggers.html
         //- Create a JoystickButton and pass it our joystick and the button number.
         JoystickButton trigger = new JoystickButton(Constants.joystick, 1);
+
+        JoystickButton button2 = new JoystickButton(Constants.joystick, 2);
+
         JoystickButton button3 = new JoystickButton(Constants.joystick, 3);
         JoystickButton button4 = new JoystickButton(Constants.joystick, 4);
         JoystickButton button5 = new JoystickButton(Constants.joystick, 5);
         JoystickButton button6 = new JoystickButton(Constants.joystick, 6);
+        JoystickButton button12 = new JoystickButton(Constants.joystick, 12);
         //- You can now tie commands to actions of that button. Some examples (not exhaustive) below...
+
         trigger.whenPressed(turnCommand2);
         button3.whenPressed(raisePneumatics);
         button4.whenPressed(lowerPneumatics);
         button5.whenPressed(barrySandersCommandGroupLeft);
         button6.whenPressed(barrySandersCommandGroupRight);
-        //button.whenPressed(new SomeCommand());
-        //button.whenReleased(new SomeCommand());
-        //- When creating these bindings, think through if you want a new command or want to reuse an existing one.
+
+        button2.whenPressed(testEncoderCommandClose);
+        button3.whenPressed(testEncoderCommandOpen);
+        button12.whenPressed(testEncoderCommandHome);
+
+        button6.whenPressed(elevatorControllerCommandUp);
+        button4.whenPressed(elevatorControllerCommandDown);
     }
     
     
@@ -116,21 +148,23 @@ public class RobotContainer
      * @return the command to run in autonomous
      */
 
-    public Subsystem getDriveSubsystem(){
-        return driveSubsystem;
+//    public Subsystem getDriveSubsystem(){
+//        return driveSubsystem;
+//    }
+//
+//    public Command getJoystickDrive() {
+//        return joystickDriveCommand;
+//    }
+//
+//    public Subsystem getElevatorSubsystem() {
+//        return elevatorSubsystem;
+//    }
+//
+//    public Command getElevatorCommand() {
+//        return elevatorControllerCommand;
+//    }
+    public IntakeSubsystem getIntakeSubsystem() {
+        return intakeSubsystem;
     }
-
-    public Command getJoystickDrive() {
-        return joystickDriveCommand;
-    }
-
-    public Subsystem getElevatorSubsystem() {
-        return elevatorSubsystem;
-    }
-
-    public Command getElevatorCommand() {
-        return elevatorControllerCommand;
-    }
-
 //    public Command getChaseCommand() { return chaseCommand;}
 }

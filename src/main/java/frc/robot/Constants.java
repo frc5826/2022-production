@@ -29,7 +29,7 @@ public final class Constants {
     public static final int rightID1 = 7;
     public static final int rightID2 = 8;
     public static final int leftTalonIntakeID = 5;
-    public static final int rightTalonIntakeID = -1;
+    public static final int rightTalonIntakeID = 6;
     public static final int ElevatorID = 0;
 
     public static final double maxSpeed = 0.3;
@@ -56,9 +56,9 @@ public final class Constants {
 
     public static final double kShooterPeakOutput = 0.90;
 
-    public static final double kShooterP = 1;
-    public static final double kShooterI = 0;
-    public static final double kShooterD = 0;
+    public static final double kIntakeP = 1;
+    public static final double kIntakeI = 0;
+    public static final double kIntakeD = 0;
 
     public static final double kRampRate = 0.3;
 
@@ -72,4 +72,8 @@ public final class Constants {
 
     public static final int armFWD = 1;
     public static final int armREV = 0;
+
+    public static final double INTAKE_SLOW = 0.2;
+
+    public static final double INTAKE_FAST = 0.3;
 }

@@ -12,24 +12,39 @@ import static frc.robot.Constants.*;
 
 public class IntakeSubsystem extends SubsystemBase {
 
-    final TalonSRX leftTalon;
-    //final TalonSRX rightTalon;
+    private final TalonSRX leftTalon;
+    private final TalonSRX rightTalon;
+
+    private double openValueLeftIntake;
+    private double openValueRightIntake;
+
+    private int leftInitCount = 0;
+    private int rightInitCount = 0;
+
+    private boolean leftInitDone = false;
+    private boolean rightInitDone = false;
 
     public IntakeSubsystem() {
         this.leftTalon = new TalonSRX(leftTalonIntakeID);
-        //this.rightTalon = new TalonSRX(rightTalonIntakeID);
+        this.rightTalon = new TalonSRX(rightTalonIntakeID);
+        this.rightTalon.setInverted(true);
 
-        List<TalonSRX> talonSRXES = Arrays.asList(this.leftTalon);
+        this.leftTalon.configPeakOutputForward(INTAKE_SLOW);
+        this.leftTalon.configPeakOutputReverse(INTAKE_FAST);
+        this.rightTalon.configPeakOutputForward(INTAKE_FAST);
+        this.rightTalon.configPeakOutputReverse(INTAKE_SLOW);
+
+        List<TalonSRX> talonSRXES = Arrays.asList(this.leftTalon, this.rightTalon);
 
         for (TalonSRX t : talonSRXES) {
-            t.configSelectedFeedbackSensor(FeedbackDevice.PulseWidthEncodedPosition,
+            t.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder,
                     kPIDLoopIdx,
                     kTimeoutMs);
 
             t.config_kF(kPIDLoopIdx, 0, kTimeoutMs);
-            t.config_kP(kPIDLoopIdx, kShooterP, kTimeoutMs);
-            t.config_kI(kPIDLoopIdx, kShooterI, kTimeoutMs);
-            t.config_kD(kPIDLoopIdx, kShooterD, kTimeoutMs);
+            t.config_kP(kPIDLoopIdx, kIntakeP, kTimeoutMs);
+            t.config_kI(kPIDLoopIdx, kIntakeI, kTimeoutMs);
+            t.config_kD(kPIDLoopIdx, kIntakeD, kTimeoutMs);
             t.configPeakOutputForward(kShooterPeakOutput, kTimeoutMs);
             t.configPeakOutputReverse(-kShooterPeakOutput, kTimeoutMs);
             t.configClosedloopRamp(kRampRate);
@@ -39,19 +54,50 @@ public class IntakeSubsystem extends SubsystemBase {
     public TalonSRX getLeftTalon() {
         return leftTalon;
     }
-
-//    public TalonSRX getRightTalon(){
-//        return rightTalon;
-//    }
+    public TalonSRX getRightTalon() { return rightTalon; }
 
     public void setPosition(double position) {
         leftTalon.set(TalonSRXControlMode.Position, position);
         //rightTalon.set(TalonSRXControlMode.Position, position);
     }
 
+    public void resetInitialize(){
+        leftInitCount = 0;
+        leftInitDone = false;
+        rightInitCount = 0;
+        rightInitDone = false;
+    }
+
+    public double getOpenValueLeftIntake() {
+        return openValueLeftIntake;
+    }
+
+    public double getOpenValueRightIntake() {return openValueRightIntake;}
+
     public void periodic() {
-        getLeftTalon().set(TalonSRXControlMode.Position, 0);
-        //System.out.println(getLeftTalon().getSelectedSensorPosition());
+
+        if (leftInitCount <= 50) {
+            leftTalon.set(TalonSRXControlMode.PercentOutput, 0.4);
+            leftInitCount++;
+        }
+        else if (leftTalon.getMotorOutputVoltage() <= 0.01 && !leftInitDone){
+            leftInitDone = true;
+            leftTalon.set(TalonSRXControlMode.PercentOutput, 0);
+            openValueLeftIntake = leftTalon.getSelectedSensorPosition();
+            System.out.println(openValueLeftIntake);
+        }
+
+        if (rightInitCount <= 50) {
+            rightTalon.set(TalonSRXControlMode.PercentOutput, 0.4);
+            rightInitCount++;
+        }
+        else if (rightTalon.getMotorOutputVoltage() <= 0.01 && !rightInitDone){
+            rightInitDone = true;
+            rightTalon.set(TalonSRXControlMode.PercentOutput, 0);
+            openValueRightIntake = rightTalon.getSelectedSensorPosition();
+            System.out.println(openValueRightIntake);
+        }
+
     }
 
 }
