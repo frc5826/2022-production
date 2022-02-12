@@ -17,5 +17,4 @@ public class LowerPneumatics extends CommandBase {
     public void execute() {
         climbSubsystem.lower();
     }
-
 }

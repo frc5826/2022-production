@@ -70,6 +70,9 @@ public final class Constants {
 
     public static final int Compressor = 11;
 
+    public static final int shooterPneumFWD = 3;
+    public static final int shooterPneumREV = 2;
+
     public static final int armFWD = 1;
     public static final int armREV = 0;
 

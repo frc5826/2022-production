@@ -37,6 +37,8 @@ public class RobotContainer
     private final TestCommandGroup testCommandGroup;
     private final TestCommandGroupTwo testCommandGroupTwo;
 
+    private final ShooterCommand shooterCommand;
+
 //    private final DriveSubsystem driveSubsystem;
 //    private final JoystickDriveCommand joystickDriveCommand;
 //    private final DriveDistanceCommand driveDistanceCommand;
@@ -55,6 +57,7 @@ public class RobotContainer
     private final ClimbSubsystem climbSubsystem;
     private final RaisePneumatics raisePneumatics;
     private final LowerPneumatics lowerPneumatics;
+    private final ShooterSubsystem shooterSubsystem;
 
     private final TestEncoderCommand testEncoderCommandClose;
     private final TestEncoderCommandLimit testEncoderCommandOpen;
@@ -88,6 +91,8 @@ public class RobotContainer
         climbSubsystem = new ClimbSubsystem();
         raisePneumatics = new RaisePneumatics(climbSubsystem);
         lowerPneumatics = new LowerPneumatics(climbSubsystem);
+        shooterSubsystem = new ShooterSubsystem();
+        shooterCommand = new ShooterCommand(shooterSubsystem);
 
         intakeSubsystem = new IntakeSubsystem();
         testEncoderCommandClose = new TestEncoderCommand(2048, intakeSubsystem);
@@ -124,21 +129,28 @@ public class RobotContainer
         JoystickButton button4 = new JoystickButton(Constants.joystick, 4);
         JoystickButton button5 = new JoystickButton(Constants.joystick, 5);
         JoystickButton button6 = new JoystickButton(Constants.joystick, 6);
+        JoystickButton button7 = new JoystickButton(Constants.joystick, 7);
+        JoystickButton button8 = new JoystickButton(Constants.joystick, 8);
+        JoystickButton button9 = new JoystickButton(Constants.joystick, 9);
+        JoystickButton button10 = new JoystickButton(Constants.joystick, 10);
+
         JoystickButton button12 = new JoystickButton(Constants.joystick, 12);
+
         //- You can now tie commands to actions of that button. Some examples (not exhaustive) below...
 
-        trigger.whenPressed(turnCommand2);
-        button3.whenPressed(raisePneumatics);
-        button4.whenPressed(lowerPneumatics);
-        button5.whenPressed(barrySandersCommandGroupLeft);
-        button6.whenPressed(barrySandersCommandGroupRight);
+        button8.whenPressed(raisePneumatics);
+        button7.whenPressed(lowerPneumatics);
 
-        button2.whenPressed(testEncoderCommandClose);
-        button3.whenPressed(testEncoderCommandOpen);
+        button3.whenPressed(barrySandersCommandGroupLeft);
+        button4.whenPressed(barrySandersCommandGroupRight);
+
+        button5.whenPressed(testEncoderCommandClose);
+        button6.whenPressed(testEncoderCommandOpen);
         button12.whenPressed(testEncoderCommandHome);
 
-        button6.whenPressed(elevatorControllerCommandUp);
-        button4.whenPressed(elevatorControllerCommandDown);
+        button10.whenPressed(elevatorControllerCommandUp);
+        button9.whenPressed(elevatorControllerCommandDown);
+        trigger.whileHeld(shooterCommand);
     }
     
     
