@@ -15,6 +15,7 @@ public class TestEncoderCommand extends CommandBase {
     private boolean leftDone = false;
 
     public TestEncoderCommand(int position, IntakeSubsystem intakeSubsystem) {
+        this.position = position;
         this.intakeSubsystem = intakeSubsystem;
         addRequirements(intakeSubsystem);
     }
@@ -29,16 +30,18 @@ public class TestEncoderCommand extends CommandBase {
     public void end(boolean interrupted) {
         leftDone = false;
         rightDone = false;
-//        intakeSubsystem.getLeftTalon().set(TalonSRXControlMode.Position, intakeSubsystem.getClosedValueLeftIntake());
-//        intakeSubsystem.getRightTalon().set(TalonSRXControlMode.Position, intakeSubsystem.getClosedValueRightIntake());
     }
 
     @Override
     public boolean isFinished(){
-        if (Math.abs( (intakeSubsystem.getOpenValueLeftIntake() - position) - intakeSubsystem.getLeftTalon().getSelectedSensorPosition()) <= 5){
+
+        double leftDiff = Math.abs( (intakeSubsystem.getOpenValueLeftIntake() - position) - intakeSubsystem.getLeftTalon().getSelectedSensorPosition());
+        double rightDiff = Math.abs( (intakeSubsystem.getOpenValueRightIntake() - position) - intakeSubsystem.getRightTalon().getSelectedSensorPosition());
+
+        if (leftDiff <= 5){
             leftDone=true;
         }
-        if (Math.abs( (intakeSubsystem.getOpenValueRightIntake() - position) - intakeSubsystem.getRightTalon().getSelectedSensorPosition()) <= 5){
+        if (rightDiff <= 5){
             rightDone=true;
         }
         return leftDone && rightDone;

@@ -10,7 +10,7 @@ public class ClimbSubsystem extends SubsystemBase {
     private DoubleSolenoid solenoid;
 
     public ClimbSubsystem(){
-        solenoid = new DoubleSolenoid(Constants.Compressor, PneumaticsModuleType.CTREPCM, Constants.armFWD, Constants.armREV);
+//        solenoid = new DoubleSolenoid(Constants.Compressor, PneumaticsModuleType.CTREPCM, Constants.armFWD, Constants.armREV);
     }
 
     public void raise(){

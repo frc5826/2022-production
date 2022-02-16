@@ -26,11 +26,11 @@ public final class Constants {
     //TODO Get the correct IDs for the speed controllers
     public static final int leftID1 = 3;
     public static final int leftID2 = 4;
-    public static final int rightID1 = 7;
-    public static final int rightID2 = 8;
+    public static final int rightID1 = 1;
+    public static final int rightID2 = 2;
     public static final int leftTalonIntakeID = 5;
-    public static final int rightTalonIntakeID = 6;
-    public static final int ElevatorID = 0;
+    public static final int rightTalonIntakeID = 9;
+    public static final int ElevatorID = 6;
 
     public static final double maxSpeed = 0.3;
     public static final double intakeSpeed = 0.3;
@@ -62,9 +62,9 @@ public final class Constants {
 
     public static final double kRampRate = 0.3;
 
-    public static final int kPIDLoopIdx = 0;
+    public static final int kPIDLoopIdx = 1;
 
-    public static final int kTimeoutMs = 30;
+    public static final int kTimeoutMs = 1000;
     
     public static final double ROBOT_RADIUS = 13.5;
 

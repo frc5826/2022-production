@@ -50,13 +50,12 @@ public class RobotContainer
 //    private final ChaseCommand chaseCommand;
 
     private final IntakeSubsystem intakeSubsystem;
-    private final ElevatorSubsystem elevatorSubsystem;
 
 //    private final ElevatorControllerCommand elevatorControllerCommand;
 
-    private final ClimbSubsystem climbSubsystem;
-    private final RaisePneumatics raisePneumatics;
-    private final LowerPneumatics lowerPneumatics;
+//    private final ClimbSubsystem climbSubsystem;
+//    private final RaisePneumatics raisePneumatics;
+//    private final LowerPneumatics lowerPneumatics;
     private final ShooterSubsystem shooterSubsystem;
 
     private final TestEncoderCommand testEncoderCommandClose;
@@ -65,7 +64,7 @@ public class RobotContainer
     private final ElevatorControllerCommand elevatorControllerCommandUp;
     private final ElevatorControllerCommand elevatorControllerCommandDown;
 
-//    private final ElevatorSubsystem elevatorSubsystem;
+    private final ElevatorSubsystem elevatorSubsystem;
 //    private final ElevatorControllerCommand elevatorControllerCommand;
 
 //    private final SensorSubsystem sensorSubsystem;
@@ -88,9 +87,9 @@ public class RobotContainer
         turnAngleCommand = new TurnAngleCommand(45, driveSubsystem);
         turnCommand2 = new TurnCommand2(driveSubsystem, -180);
 
-        climbSubsystem = new ClimbSubsystem();
-        raisePneumatics = new RaisePneumatics(climbSubsystem);
-        lowerPneumatics = new LowerPneumatics(climbSubsystem);
+        //climbSubsystem = new ClimbSubsystem();
+        //raisePneumatics = new RaisePneumatics(climbSubsystem);
+        //lowerPneumatics = new LowerPneumatics(climbSubsystem);
         shooterSubsystem = new ShooterSubsystem();
         shooterCommand = new ShooterCommand(shooterSubsystem);
 
@@ -99,11 +98,11 @@ public class RobotContainer
         testEncoderCommandOpen = new TestEncoderCommandLimit(0.314159265359, intakeSubsystem);
         testEncoderCommandHome = new TestEncoderCommand(3000, intakeSubsystem);
 
-        elevatorSubsystem = new ElevatorSubsystem(0);
+        //elevatorSubsystem = new ElevatorSubsystem(0);
+        elevatorSubsystem = new ElevatorSubsystem(Constants.ElevatorID);
         elevatorControllerCommandDown = new ElevatorControllerCommand(-0.3, elevatorSubsystem);
         elevatorControllerCommandUp = new ElevatorControllerCommand(0.3, elevatorSubsystem);
 
-//        elevatorSubsystem = new ElevatorSubsystem(Constants.ElevatorID);
 //        elevatorControllerCommand = new ElevatorControllerCommand(elevatorSubsystem);
         // Configure the button bindings
         configureButtonBindings();
@@ -138,8 +137,8 @@ public class RobotContainer
 
         //- You can now tie commands to actions of that button. Some examples (not exhaustive) below...
 
-        button8.whenPressed(raisePneumatics);
-        button7.whenPressed(lowerPneumatics);
+//        button8.whenPressed(raisePneumatics);
+//        button7.whenPressed(lowerPneumatics);
 
         button3.whenPressed(barrySandersCommandGroupLeft);
         button4.whenPressed(barrySandersCommandGroupRight);
@@ -148,8 +147,8 @@ public class RobotContainer
         button6.whenPressed(testEncoderCommandOpen);
         button12.whenPressed(testEncoderCommandHome);
 
-        button10.whenPressed(elevatorControllerCommandUp);
-        button9.whenPressed(elevatorControllerCommandDown);
+        //button10.whenPressed(elevatorControllerCommandUp);
+        //button9.whenPressed(elevatorControllerCommandDown);
         trigger.whileHeld(shooterCommand);
     }
     
@@ -160,14 +159,14 @@ public class RobotContainer
      * @return the command to run in autonomous
      */
 
-//    public Subsystem getDriveSubsystem(){
-//        return driveSubsystem;
-//    }
-//
-//    public Command getJoystickDrive() {
-//        return joystickDriveCommand;
-//    }
-//
+    public Subsystem getDriveSubsystem(){
+        return driveSubsystem;
+    }
+
+    public Command getJoystickDrive() {
+        return joystickDriveCommand;
+    }
+
 //    public Subsystem getElevatorSubsystem() {
 //        return elevatorSubsystem;
 //    }

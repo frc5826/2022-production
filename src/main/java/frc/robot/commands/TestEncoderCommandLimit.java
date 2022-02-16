@@ -18,6 +18,7 @@ public class TestEncoderCommandLimit extends CommandBase {
     private boolean rightTurnDone = false;
 
     public TestEncoderCommandLimit(double intakeMotorPower, IntakeSubsystem intakeSubsystem) {
+        this.intakeMotorPower = intakeMotorPower;
         this.intakeSubsystem = intakeSubsystem;
         addRequirements(intakeSubsystem);
     }
