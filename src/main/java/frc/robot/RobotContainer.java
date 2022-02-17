@@ -99,9 +99,9 @@ public class RobotContainer
         testEncoderCommandHome = new TestEncoderCommand(3000, intakeSubsystem);
 
         //elevatorSubsystem = new ElevatorSubsystem(0);
-        elevatorSubsystem = new ElevatorSubsystem(Constants.ElevatorID);
-        elevatorControllerCommandDown = new ElevatorControllerCommand(-0.3, elevatorSubsystem);
-        elevatorControllerCommandUp = new ElevatorControllerCommand(0.3, elevatorSubsystem);
+        elevatorSubsystem = new ElevatorSubsystem();
+        elevatorControllerCommandDown = new ElevatorControllerCommand(Constants.elevatorDownSpeed, elevatorSubsystem);
+        elevatorControllerCommandUp = new ElevatorControllerCommand(Constants.elevatorUpSpeed, elevatorSubsystem);
 
 //        elevatorControllerCommand = new ElevatorControllerCommand(elevatorSubsystem);
         // Configure the button bindings
@@ -147,8 +147,8 @@ public class RobotContainer
         button6.whenPressed(testEncoderCommandOpen);
         button12.whenPressed(testEncoderCommandHome);
 
-        //button10.whenPressed(elevatorControllerCommandUp);
-        //button9.whenPressed(elevatorControllerCommandDown);
+        button10.whenPressed(elevatorControllerCommandUp);
+        button9.whenPressed(elevatorControllerCommandDown);
         trigger.whileHeld(shooterCommand);
     }
     

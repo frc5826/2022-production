@@ -14,25 +14,26 @@ public class ElevatorControllerCommand extends CommandBase {
     private double elevatorMotorPower = 0;
 
     public ElevatorControllerCommand(double elevatorMotorPower, ElevatorSubsystem elevatorSubsystem){
+        this.elevatorMotorPower = elevatorMotorPower;
         this.elevatorSubsystem = elevatorSubsystem;
         addRequirements(elevatorSubsystem);
     }
 
     @Override
     public void execute() {
-        if (elevatorInitCount <= 50) {
+        if(!elevatorInitDone){
             elevatorSubsystem.getElevatorTalon().set(TalonSRXControlMode.PercentOutput, elevatorMotorPower);
             elevatorInitCount++;
         }
-        else if (elevatorSubsystem.getElevatorTalon().getMotorOutputVoltage() <= 0.01 && !elevatorInitDone){
+        else if (elevatorSubsystem.getElevatorTalon().getMotorOutputVoltage() <= 0.01 && elevatorInitCount > 50){
             elevatorInitDone = true;
-            elevatorSubsystem.getElevatorTalon().set(TalonSRXControlMode.PercentOutput, 0);
         }
 
     }
 
     @Override
     public void end(boolean interrupted) {
+        elevatorSubsystem.getElevatorTalon().set(TalonSRXControlMode.PercentOutput, 0);
         elevatorInitDone = false;
     }
 
