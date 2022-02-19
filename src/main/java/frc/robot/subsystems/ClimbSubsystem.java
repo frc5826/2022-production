@@ -7,17 +7,23 @@ import frc.robot.Constants;
 
 public class ClimbSubsystem extends SubsystemBase {
 
-    private DoubleSolenoid solenoid;
+    private DoubleSolenoid leftSolenoid;
+    private DoubleSolenoid rightSolenoid;
 
     public ClimbSubsystem(){
-//        solenoid = new DoubleSolenoid(Constants.Compressor, PneumaticsModuleType.CTREPCM, Constants.armFWD, Constants.armREV);
+        leftSolenoid = new DoubleSolenoid(Constants.Compressor, PneumaticsModuleType.CTREPCM, Constants.leftArmFWD, Constants.leftArmREV);
+        rightSolenoid = new DoubleSolenoid(Constants.Compressor, PneumaticsModuleType.CTREPCM, Constants.rightArmFWD, Constants.rightArmREV);
+
     }
 
     public void raise(){
-        solenoid.set(DoubleSolenoid.Value.kForward);
+        leftSolenoid.set(DoubleSolenoid.Value.kForward);
+        rightSolenoid.set(DoubleSolenoid.Value.kForward);
     }
 
     public void lower(){
-        solenoid.set(DoubleSolenoid.Value.kReverse);
+        leftSolenoid.set(DoubleSolenoid.Value.kReverse);
+        rightSolenoid.set(DoubleSolenoid.Value.kReverse);
+
     }
 }

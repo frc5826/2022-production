@@ -44,8 +44,8 @@ public class DriveSubsystem extends SubsystemBase {
 
         leftSpark1.setInverted(false);
         leftSpark2.setInverted(false);
-        rightSpark1.setInverted(false);
-        rightSpark2.setInverted(false);
+        rightSpark1.setInverted(true);
+        rightSpark2.setInverted(true);
 
         leftSpark1_PID = leftSpark1.getPIDController();
         leftSpark2_PID = leftSpark2.getPIDController();

@@ -78,11 +78,6 @@ public class IntakeSubsystem extends SubsystemBase {
 
     public void periodic() {
 
-        if(count++ % 100 == 0){
-            System.out.println("Left POS: " + getLeftTalon().getSelectedSensorPosition());
-            System.out.println("Right POS: " + getRightTalon().getSelectedSensorPosition());
-        }
-
         if (leftInitCount <= 50) {
             leftTalon.set(TalonSRXControlMode.PercentOutput, 0.4);
             leftInitCount++;
@@ -91,7 +86,6 @@ public class IntakeSubsystem extends SubsystemBase {
             leftInitDone = true;
             leftTalon.set(TalonSRXControlMode.PercentOutput, 0);
             openValueLeftIntake = leftTalon.getSelectedSensorPosition();
-            System.out.println("OPEN LEFT INTAKE: " + openValueLeftIntake);
         }
 
         if (rightInitCount <= 50) {
@@ -102,7 +96,6 @@ public class IntakeSubsystem extends SubsystemBase {
             rightInitDone = true;
             rightTalon.set(TalonSRXControlMode.PercentOutput, 0);
             openValueRightIntake = rightTalon.getSelectedSensorPosition();
-            System.out.println("OPEN RIGHT INTAKE: " + openValueRightIntake);
         }
 
     }

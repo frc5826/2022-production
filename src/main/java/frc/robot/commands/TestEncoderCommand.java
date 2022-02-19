@@ -38,12 +38,14 @@ public class TestEncoderCommand extends CommandBase {
         double leftDiff = Math.abs( (intakeSubsystem.getOpenValueLeftIntake() - position) - intakeSubsystem.getLeftTalon().getSelectedSensorPosition());
         double rightDiff = Math.abs( (intakeSubsystem.getOpenValueRightIntake() - position) - intakeSubsystem.getRightTalon().getSelectedSensorPosition());
 
-        if (leftDiff <= 5){
+        if (leftDiff <= 100){
             leftDone=true;
         }
-        if (rightDiff <= 5){
+        if (rightDiff <= 100){
             rightDone=true;
         }
+        System.out.println(leftDiff);
+        System.out.println(rightDiff);
         return leftDone && rightDone;
     }
 }

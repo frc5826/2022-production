@@ -24,6 +24,7 @@ public final class Constants {
     public static AHRS gyro = new AHRS(SPI.Port.kMXP);
 
     //TODO Get the correct IDs for the speed controllers
+
     public static final int leftID1 = 3;
     public static final int leftID2 = 4;
     public static final int rightID1 = 1;
@@ -71,11 +72,14 @@ public final class Constants {
 
     public static final int Compressor = 11;
 
-    public static final int shooterPneumFWD = 3;
-    public static final int shooterPneumREV = 2;
+    public static final int shooterPneumFWD = 1;
+    public static final int shooterPneumREV = 0;
 
-    public static final int armFWD = 1;
-    public static final int armREV = 0;
+    public static final int leftArmFWD = 2;
+    public static final int leftArmREV = 3;
+
+    public static final int rightArmFWD = 4;
+    public static final int rightArmREV = 5;
 
     public static final double INTAKE_SLOW = 0.2;
 

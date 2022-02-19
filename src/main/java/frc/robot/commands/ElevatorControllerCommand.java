@@ -33,8 +33,8 @@ public class ElevatorControllerCommand extends CommandBase {
 
     @Override
     public void end(boolean interrupted) {
-        elevatorSubsystem.getElevatorTalon().set(TalonSRXControlMode.PercentOutput, 0);
         elevatorInitDone = false;
+        elevatorSubsystem.getElevatorTalon().set(TalonSRXControlMode.PercentOutput, 0);
     }
 
     @Override

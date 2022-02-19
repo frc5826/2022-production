@@ -14,7 +14,15 @@ public class JoystickDriveCommand extends CommandBase {
 
     @Override
     public void execute() {
-        driveSubsystem.getDiffDrive().arcadeDrive(-Constants.joystick.getY(), Constants.joystick.getZ());
+        double y = -Constants.joystick.getY();
+        if(y < 0) {
+            driveSubsystem.setSpeedOutputRange(-Constants.PEAK_OUTPUT / 2, Constants.PEAK_OUTPUT / 2);
+        } else{
+            driveSubsystem.setSpeedOutputRange(-Constants.PEAK_OUTPUT, Constants.PEAK_OUTPUT);
+
+        }
+
+        driveSubsystem.getDiffDrive().arcadeDrive(y, Constants.joystick.getZ());
     }
 
     @Override

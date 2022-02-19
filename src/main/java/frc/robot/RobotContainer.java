@@ -37,7 +37,7 @@ public class RobotContainer
     private final TestCommandGroup testCommandGroup;
     private final TestCommandGroupTwo testCommandGroupTwo;
 
-    private final ShooterCommand shooterCommand;
+    private final ShooterElevatorCommand shooterCommand;
 
 //    private final DriveSubsystem driveSubsystem;
 //    private final JoystickDriveCommand joystickDriveCommand;
@@ -51,21 +51,19 @@ public class RobotContainer
 
     private final IntakeSubsystem intakeSubsystem;
 
-//    private final ElevatorControllerCommand elevatorControllerCommand;
-
-//    private final ClimbSubsystem climbSubsystem;
-//    private final RaisePneumatics raisePneumatics;
-//    private final LowerPneumatics lowerPneumatics;
+    private final ClimbSubsystem climbSubsystem;
+    private final RaisePneumatics raisePneumatics;
+    private final LowerPneumatics lowerPneumatics;
     private final ShooterSubsystem shooterSubsystem;
 
     private final TestEncoderCommand testEncoderCommandClose;
     private final TestEncoderCommandLimit testEncoderCommandOpen;
     private final TestEncoderCommand testEncoderCommandHome;
-    private final ElevatorControllerCommand elevatorControllerCommandUp;
+    private final ElevatorUpCloseCommand elevatorControllerCommandUp;
     private final ElevatorControllerCommand elevatorControllerCommandDown;
 
+    private final AutonomousCommandGroup autonomousCommand;
     private final ElevatorSubsystem elevatorSubsystem;
-//    private final ElevatorControllerCommand elevatorControllerCommand;
 
 //    private final SensorSubsystem sensorSubsystem;
 
@@ -87,22 +85,26 @@ public class RobotContainer
         turnAngleCommand = new TurnAngleCommand(45, driveSubsystem);
         turnCommand2 = new TurnCommand2(driveSubsystem, -180);
 
-        //climbSubsystem = new ClimbSubsystem();
-        //raisePneumatics = new RaisePneumatics(climbSubsystem);
-        //lowerPneumatics = new LowerPneumatics(climbSubsystem);
+        elevatorSubsystem = new ElevatorSubsystem();
+        climbSubsystem = new ClimbSubsystem();
+        raisePneumatics = new RaisePneumatics(climbSubsystem);
+        lowerPneumatics = new LowerPneumatics(climbSubsystem);
         shooterSubsystem = new ShooterSubsystem();
-        shooterCommand = new ShooterCommand(shooterSubsystem);
+
 
         intakeSubsystem = new IntakeSubsystem();
-        testEncoderCommandClose = new TestEncoderCommand(2048, intakeSubsystem);
+        testEncoderCommandClose = new TestEncoderCommand(2500, intakeSubsystem);
         testEncoderCommandOpen = new TestEncoderCommandLimit(0.314159265359, intakeSubsystem);
-        testEncoderCommandHome = new TestEncoderCommand(3000, intakeSubsystem);
+        testEncoderCommandHome = new TestEncoderCommand(3400, intakeSubsystem);
 
         //elevatorSubsystem = new ElevatorSubsystem(0);
-        elevatorSubsystem = new ElevatorSubsystem();
-        elevatorControllerCommandDown = new ElevatorControllerCommand(Constants.elevatorDownSpeed, elevatorSubsystem);
-        elevatorControllerCommandUp = new ElevatorControllerCommand(Constants.elevatorUpSpeed, elevatorSubsystem);
 
+        elevatorControllerCommandDown = new ElevatorControllerCommand(Constants.elevatorDownSpeed, elevatorSubsystem);
+        //elevatorControllerCommandUp = new ElevatorControllerCommand(Constants.elevatorUpSpeed, elevatorSubsystem);
+        elevatorControllerCommandUp = new ElevatorUpCloseCommand(testEncoderCommandClose, new ElevatorControllerCommand(Constants.elevatorUpSpeed, elevatorSubsystem));
+
+        shooterCommand = new ShooterElevatorCommand(new ShooterCommand(shooterSubsystem), elevatorControllerCommandDown);
+        autonomousCommand = new AutonomousCommandGroup(driveSubsystem, new ShooterCommand(shooterSubsystem), elevatorControllerCommandUp, elevatorControllerCommandDown);
 //        elevatorControllerCommand = new ElevatorControllerCommand(elevatorSubsystem);
         // Configure the button bindings
         configureButtonBindings();
@@ -140,16 +142,18 @@ public class RobotContainer
 //        button8.whenPressed(raisePneumatics);
 //        button7.whenPressed(lowerPneumatics);
 
-        button3.whenPressed(barrySandersCommandGroupLeft);
-        button4.whenPressed(barrySandersCommandGroupRight);
+//        button5.whenPressed(barrySandersCommandGroupLeft);
+//        button6.whenPressed(barrySandersCommandGroupRight);
 
-        button5.whenPressed(testEncoderCommandClose);
-        button6.whenPressed(testEncoderCommandOpen);
+        button3.whenPressed(testEncoderCommandClose);
+        button4.whenPressed(testEncoderCommandOpen);
         button12.whenPressed(testEncoderCommandHome);
 
         button10.whenPressed(elevatorControllerCommandUp);
         button9.whenPressed(elevatorControllerCommandDown);
-        trigger.whileHeld(shooterCommand);
+        trigger.whenPressed(shooterCommand);
+
+        button2.whenPressed(autonomousCommand);
     }
     
     

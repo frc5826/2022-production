@@ -14,10 +14,10 @@ public class ShooterSubsystem  extends SubsystemBase {
     }
 
     public void shoot(){
-        solenoid.set(DoubleSolenoid.Value.kForward);
+        solenoid.set(DoubleSolenoid.Value.kReverse);
     }
 
     public void retract(){
-        solenoid.set(DoubleSolenoid.Value.kReverse);
+        solenoid.set(DoubleSolenoid.Value.kForward);
     }
 }
