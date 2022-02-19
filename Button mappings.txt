@@ -1,0 +1,15 @@
+
+	Trigger - shooter
+	Button 2 - --
+	Button 3 - intake close
+	Button 4 - intake open
+	Button 5 - dodge left
+	Button 6 - dodge right
+	Button 7 - lower pneumatics
+	Button 8 - raise pneumatics
+	Button 9 - elevator down
+	Button 10 - elevator up
+	Button 11 - --
+	Button 12 - intake home
+
+	
