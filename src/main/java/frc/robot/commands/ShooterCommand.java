@@ -1,7 +1,6 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.ShooterSubsystem;
 
@@ -24,7 +23,7 @@ public class ShooterCommand extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        return delayCount > 20;
+        return delayCount > Constants.PNEUMATICS_INIT_COUNT;
     }
 
     @Override

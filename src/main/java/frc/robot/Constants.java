@@ -21,6 +21,8 @@ public final class Constants {
 
     public static final Joystick joystick = new Joystick(0);
 
+
+
     public static AHRS gyro = new AHRS(SPI.Port.kMXP);
 
     //TODO Get the correct IDs for the speed controllers
@@ -84,4 +86,13 @@ public final class Constants {
     public static final double INTAKE_SLOW = 0.2;
 
     public static final double INTAKE_FAST = 0.3;
+
+    public static final int MOTOR_INIT_COUNT = 25;
+    public static final int PNEUMATICS_INIT_COUNT = 25;
+
+    public static final int INTAKE_CLOSE_POS = 2500;
+
+    public static final double INTAKE_MOTOR_POWER = .4;
+
+    public static final int AUTO_DRIVE_DISTANCE = 60;
 }

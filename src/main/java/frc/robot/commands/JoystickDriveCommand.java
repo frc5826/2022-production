@@ -15,6 +15,7 @@ public class JoystickDriveCommand extends CommandBase {
     @Override
     public void execute() {
         double y = -Constants.joystick.getY();
+        //TODO - Could we also check if the elevator is up and limit speed?
         if(y < 0) {
             driveSubsystem.setSpeedOutputRange(-Constants.PEAK_OUTPUT / 2, Constants.PEAK_OUTPUT / 2);
         } else{
