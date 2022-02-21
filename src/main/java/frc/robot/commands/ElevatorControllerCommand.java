@@ -20,11 +20,14 @@ public class ElevatorControllerCommand extends CommandBase {
 
     @Override
     public void execute() {
+        System.out.println(elevatorInitCount);
+        System.out.println(elevatorSubsystem.getElevatorTalon().getMotorOutputVoltage());
         if(!elevatorInitDone){
             elevatorSubsystem.getElevatorTalon().set(TalonSRXControlMode.PercentOutput, elevatorMotorPower);
             elevatorInitCount++;
         }
-        else if (elevatorSubsystem.getElevatorTalon().getMotorOutputVoltage() <= 0.01 && elevatorInitCount > Constants.MOTOR_INIT_COUNT){
+        double voltage = elevatorSubsystem.getElevatorTalon().getMotorOutputVoltage();
+        if (Math.abs(voltage) <= 0.01 && elevatorInitCount > Constants.MOTOR_INIT_COUNT){
             elevatorInitDone = true;
         }
     }
@@ -38,6 +41,7 @@ public class ElevatorControllerCommand extends CommandBase {
 
     @Override
     public boolean isFinished(){
+        System.out.println(elevatorInitDone);
         return elevatorInitDone;
     }
 }

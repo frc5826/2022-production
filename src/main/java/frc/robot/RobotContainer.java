@@ -66,10 +66,10 @@ public class RobotContainer
         //- Create a JoystickButton and pass it our joystick and the button number.
 
         JoystickButton trigger = new JoystickButton(Constants.joystick, 1);
-//        JoystickButton button2 = new JoystickButton(Constants.joystick, 2);
+        JoystickButton button2 = new JoystickButton(Constants.joystick, 2);
         JoystickButton button3 = new JoystickButton(Constants.joystick, 3);
         JoystickButton button4 = new JoystickButton(Constants.joystick, 4);
-//        JoystickButton button5 = new JoystickButton(Constants.joystick, 5);
+        JoystickButton button5 = new JoystickButton(Constants.joystick, 5);
 //        JoystickButton button6 = new JoystickButton(Constants.joystick, 6);
 //        JoystickButton button7 = new JoystickButton(Constants.joystick, 7);
 //        JoystickButton button8 = new JoystickButton(Constants.joystick, 8);
@@ -79,8 +79,10 @@ public class RobotContainer
 //        JoystickButton button12 = new JoystickButton(Constants.joystick, 12);
 
         trigger.whenPressed(new ShooterElevatorCommand(getShooterSubsystem(), getElevatorSubsystem()));
-        button3.whenPressed(new IntakeCloseCommand(getIntakeSubsystem()));
-        button4.whenPressed(new IntakeOpenCommand(getIntakeSubsystem()));
+        button2.whenPressed(new IntakeResetCommand(getIntakeSubsystem()));
+        button3.whenPressed(new IntakeOpenCommand(getIntakeSubsystem()));
+        button4.whenPressed(new IntakeCloseCommand(getIntakeSubsystem()));
+        button5.whenPressed(new IntakeHomeCommand(getIntakeSubsystem()));
         button9.whenPressed(new ElevatorDownCommand(getElevatorSubsystem()));
         button10.whenPressed(new ElevatorUpCommand(getIntakeSubsystem(), getElevatorSubsystem()));
 

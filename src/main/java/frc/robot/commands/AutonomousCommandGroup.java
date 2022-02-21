@@ -15,7 +15,7 @@ public class AutonomousCommandGroup extends SequentialCommandGroup {
                 new ShooterCommand(shooter),
                 new ElevatorDownCommand(elevator),
                 new IntakeInitializeCommand(intake),
-                new DriveDistanceCommand(-Constants.AUTO_DRIVE_DISTANCE, drive)
+                new DriveDistanceCommand(Constants.AUTO_DRIVE_DISTANCE_INCHES, drive)
         );
     }
 }
