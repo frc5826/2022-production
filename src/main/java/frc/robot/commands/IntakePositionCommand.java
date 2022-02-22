@@ -4,17 +4,15 @@ import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.IntakeSubsystem;
 import java.lang.Math;
-import org.w3c.dom.ls.LSOutput;
 
-public class TestEncoderCommand extends CommandBase {
+public class IntakePositionCommand extends CommandBase {
 
     private final IntakeSubsystem intakeSubsystem;
-    private int count = 0;
     private int position;
     private boolean rightDone = false;
     private boolean leftDone = false;
 
-    public TestEncoderCommand(int position, IntakeSubsystem intakeSubsystem) {
+    public IntakePositionCommand(int position, IntakeSubsystem intakeSubsystem) {
         this.position = position;
         this.intakeSubsystem = intakeSubsystem;
         addRequirements(intakeSubsystem);
@@ -35,8 +33,8 @@ public class TestEncoderCommand extends CommandBase {
     @Override
     public boolean isFinished(){
 
-        double leftDiff = Math.abs( (intakeSubsystem.getOpenValueLeftIntake() - position) - intakeSubsystem.getLeftTalon().getSelectedSensorPosition());
-        double rightDiff = Math.abs( (intakeSubsystem.getOpenValueRightIntake() - position) - intakeSubsystem.getRightTalon().getSelectedSensorPosition());
+        double leftDiff = Math.abs((intakeSubsystem.getOpenValueLeftIntake() - position) - intakeSubsystem.getLeftTalon().getSelectedSensorPosition());
+        double rightDiff = Math.abs((intakeSubsystem.getOpenValueRightIntake() - position) - intakeSubsystem.getRightTalon().getSelectedSensorPosition());
 
         if (leftDiff <= 100){
             leftDone=true;

@@ -7,6 +7,7 @@ import frc.robot.subsystems.ClimbSubsystem;
 public class LowerPneumatics extends CommandBase {
 
     private ClimbSubsystem climbSubsystem;
+    private int delayCount = 0;
 
     public LowerPneumatics(ClimbSubsystem climbSubsystem){
         this.climbSubsystem = climbSubsystem;
@@ -16,5 +17,16 @@ public class LowerPneumatics extends CommandBase {
     @Override
     public void execute() {
         climbSubsystem.lower();
+        delayCount++;
+    }
+
+    @Override
+    public boolean isFinished() {
+        return delayCount > Constants.PNEUMATICS_INIT_COUNT;
+    }
+
+    @Override
+    public void end(boolean interrupted) {
+        delayCount = 0;
     }
 }

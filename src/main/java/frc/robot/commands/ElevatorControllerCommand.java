@@ -1,6 +1,5 @@
 package frc.robot.commands;
 
-//import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
 import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
@@ -11,7 +10,7 @@ public class ElevatorControllerCommand extends CommandBase {
     private final ElevatorSubsystem elevatorSubsystem;
     private int elevatorInitCount = 0;
     private boolean elevatorInitDone = false;
-    private double elevatorMotorPower = 0;
+    private double elevatorMotorPower;
 
     public ElevatorControllerCommand(double elevatorMotorPower, ElevatorSubsystem elevatorSubsystem){
         this.elevatorMotorPower = elevatorMotorPower;
@@ -25,16 +24,17 @@ public class ElevatorControllerCommand extends CommandBase {
             elevatorSubsystem.getElevatorTalon().set(TalonSRXControlMode.PercentOutput, elevatorMotorPower);
             elevatorInitCount++;
         }
-        else if (elevatorSubsystem.getElevatorTalon().getMotorOutputVoltage() <= 0.01 && elevatorInitCount > 50){
+        double voltage = elevatorSubsystem.getElevatorTalon().getMotorOutputVoltage();
+        if (Math.abs(voltage) <= 0.01 && elevatorInitCount > Constants.MOTOR_INIT_COUNT){
             elevatorInitDone = true;
         }
-
     }
 
     @Override
     public void end(boolean interrupted) {
-        elevatorInitDone = false;
         elevatorSubsystem.getElevatorTalon().set(TalonSRXControlMode.PercentOutput, 0);
+        elevatorInitCount = 0;
+        elevatorInitDone = false;
     }
 
     @Override

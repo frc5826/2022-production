@@ -1,6 +1,5 @@
 package frc.robot.commands;
 
-import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DriveSubsystem;
 
@@ -10,8 +9,6 @@ public class DriveDistanceCommand extends CommandBase {
     private final DriveSubsystem driveSubsystem;
     private double leftTargetDist;
     private double rightTargetDist;
-
-    private int count = 0;
 
     public DriveDistanceCommand(double distanceInches, DriveSubsystem driveSubsystem) {
         this.distanceInches = -distanceInches;
@@ -27,12 +24,8 @@ public class DriveDistanceCommand extends CommandBase {
 
     @Override
     public void execute() {
-
         driveSubsystem.setLeftPosition(leftTargetDist);
         driveSubsystem.setRightPosition(rightTargetDist);
-        if(count++ % 25 == 0) {
-            System.out.println(driveSubsystem.getMotorPower());
-        }
     }
 
     @Override

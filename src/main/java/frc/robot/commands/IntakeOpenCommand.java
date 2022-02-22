@@ -1,14 +1,13 @@
 package frc.robot.commands;
 
 import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.subsystems.IntakeSubsystem;
 
-public class TestEncoderCommandLimit extends CommandBase {
+public class IntakeOpenCommand extends CommandBase {
 
     private final IntakeSubsystem intakeSubsystem;
-    private int count = 0;
     private double intakeMotorPower;
 
     private int leftTurnCount = 0;
@@ -17,15 +16,15 @@ public class TestEncoderCommandLimit extends CommandBase {
     private boolean leftTurnDone = false;
     private boolean rightTurnDone = false;
 
-    public TestEncoderCommandLimit(double intakeMotorPower, IntakeSubsystem intakeSubsystem) {
-        this.intakeMotorPower = intakeMotorPower;
+    public IntakeOpenCommand(IntakeSubsystem intakeSubsystem) {
+        this.intakeMotorPower = Constants.INTAKE_MOTOR_POWER;
         this.intakeSubsystem = intakeSubsystem;
         addRequirements(intakeSubsystem);
     }
 
     @Override
     public void execute() {
-        if (leftTurnCount <= 50) {
+        if (leftTurnCount <= Constants.MOTOR_INIT_COUNT) {
             intakeSubsystem.getLeftTalon().set(TalonSRXControlMode.PercentOutput, intakeMotorPower);
             leftTurnCount++;
         }
@@ -34,7 +33,7 @@ public class TestEncoderCommandLimit extends CommandBase {
             intakeSubsystem.getLeftTalon().set(TalonSRXControlMode.PercentOutput, 0);
         }
 
-        if (rightTurnCount <= 50) {
+        if (rightTurnCount <= Constants.MOTOR_INIT_COUNT) {
             intakeSubsystem.getRightTalon().set(TalonSRXControlMode.PercentOutput, intakeMotorPower);
             rightTurnCount++;
         }
@@ -46,16 +45,14 @@ public class TestEncoderCommandLimit extends CommandBase {
 
     @Override
     public void end(boolean interrupted) {
-
-        count = 0;
         leftTurnCount = 0;
         rightTurnCount = 0;
 
         leftTurnDone = false;
         rightTurnDone = false;
 
-//        intakeSubsystem.getLeftTalon().set(TalonSRXControlMode.Position, intakeSubsystem.getClosedValueLeftIntake());
-//        intakeSubsystem.getRightTalon().set(TalonSRXControlMode.Position, intakeSubsystem.getClosedValueRightIntake());
+        intakeSubsystem.getRightTalon().set(TalonSRXControlMode.PercentOutput, 0);
+        intakeSubsystem.getLeftTalon().set(TalonSRXControlMode.PercentOutput, 0);
     }
 
     @Override

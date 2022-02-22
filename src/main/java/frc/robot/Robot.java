@@ -5,12 +5,10 @@
 
 package frc.robot;
 
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
-import frc.robot.commands.JoystickDriveCommand;
-import frc.robot.subsystems.IntakeSubsystem;
 
 
 /**
@@ -22,7 +20,6 @@ import frc.robot.subsystems.IntakeSubsystem;
 public class Robot extends TimedRobot
 {
     private Command autonomousCommand;
-    
     private RobotContainer robotContainer;
     
     
@@ -35,9 +32,11 @@ public class Robot extends TimedRobot
     {
         // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
         // autonomous chooser on the dashboard.
+        CameraServer.startAutomaticCapture();
+
         robotContainer = new RobotContainer();
-        CommandScheduler.getInstance().setDefaultCommand(robotContainer.getDriveSubsystem(), robotContainer.getJoystickDrive());
-//        CommandScheduler.getInstance().setDefaultCommand(robotContainer.getElevatorSubsystem(), robotContainer.getElevatorCommand());
+        CommandScheduler.getInstance().setDefaultCommand(robotContainer.getDriveSubsystem(), robotContainer.createJoystickCommand());
+        robotContainer.getIntakeSubsystem().resetInitialize();
     }
     
     
@@ -72,7 +71,13 @@ public class Robot extends TimedRobot
     @Override
     public void autonomousInit()
     {
-        robotContainer.getIntakeSubsystem().resetInitialize();
+        autonomousCommand = robotContainer.createAutoCommand();
+
+        // schedule the autonomous command (example)
+        if (autonomousCommand != null)
+        {
+            autonomousCommand.schedule();
+        }
     }
     
     /** This method is called periodically during autonomous. */
@@ -87,10 +92,11 @@ public class Robot extends TimedRobot
         // teleop starts running. If you want the autonomous to
         // continue until interrupted by another command, remove
         // this line or comment it out.
-//        if (autonomousCommand != null)
-//        {
-//            autonomousCommand.cancel();
-//        }
+        if (autonomousCommand != null)
+        {
+            autonomousCommand.cancel();
+        }
+        robotContainer.getIntakeSubsystem().setReadyToInit();
     }
     
     
