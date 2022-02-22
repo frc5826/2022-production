@@ -90,12 +90,12 @@ public final class Constants {
     public static final int MOTOR_INIT_COUNT = 25;
     public static final int PNEUMATICS_INIT_COUNT = 25;
 
-    public static final int INTAKE_CLOSE_POS = 2500;
-    public static final int INTAKE_HOME_POS = 3400;
+    public static final int INTAKE_CLOSE_POS = 3000;
+    public static final int INTAKE_HOME_POS = 3300;
 
-    public static final double INTAKE_MOTOR_POWER = .4;
+    public static final double INTAKE_MOTOR_POWER = 0.4;
 
-    public static final int AUTO_DRIVE_DISTANCE_INCHES = 96;
+    public static final int AUTO_DRIVE_DISTANCE_INCHES = 104;
 
     public static final double REVERSE_MAX_SPEED = -0.5;
 }

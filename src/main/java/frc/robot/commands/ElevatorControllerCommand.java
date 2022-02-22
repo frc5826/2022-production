@@ -20,8 +20,6 @@ public class ElevatorControllerCommand extends CommandBase {
 
     @Override
     public void execute() {
-        System.out.println(elevatorInitCount);
-        System.out.println(elevatorSubsystem.getElevatorTalon().getMotorOutputVoltage());
         if(!elevatorInitDone){
             elevatorSubsystem.getElevatorTalon().set(TalonSRXControlMode.PercentOutput, elevatorMotorPower);
             elevatorInitCount++;
@@ -41,7 +39,6 @@ public class ElevatorControllerCommand extends CommandBase {
 
     @Override
     public boolean isFinished(){
-        System.out.println(elevatorInitDone);
         return elevatorInitDone;
     }
 }
