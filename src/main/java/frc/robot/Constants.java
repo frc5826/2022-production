@@ -83,6 +83,12 @@ public final class Constants {
     public static final int rightArmFWD = 4;
     public static final int rightArmREV = 5;
 
+    public static final int leftArm2FWD = -1;
+    public static final int leftArm2REV = -1;
+
+    public static final int rightArm2FWD = -1;
+    public static final int rightArm2REV = -1;
+
     public static final double INTAKE_SLOW = 0.2;
 
     public static final double INTAKE_FAST = 0.3;

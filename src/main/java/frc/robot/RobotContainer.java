@@ -27,6 +27,7 @@ public class RobotContainer
     private final ShooterSubsystem shooterSubsystem;
     private final ElevatorSubsystem elevatorSubsystem;
     private final DriveSubsystem driveSubsystem;
+    //private final ClimbSubsystem2 climbSubsystem2;
 
 
 //    private final SensorSubsystem sensorSubsystem;
@@ -39,6 +40,7 @@ public class RobotContainer
         climbSubsystem = new ClimbSubsystem();
         shooterSubsystem = new ShooterSubsystem();
         intakeSubsystem = new IntakeSubsystem();
+        //climbSubsystem2 = new ClimbSubsystem2();
 
 
 //        testEncoderCommandClose = new TestEncoderCommand(2500, intakeSubsystem);
@@ -70,13 +72,13 @@ public class RobotContainer
         JoystickButton button3 = new JoystickButton(Constants.joystick, 3);
         JoystickButton button4 = new JoystickButton(Constants.joystick, 4);
         JoystickButton button5 = new JoystickButton(Constants.joystick, 5);
-//        JoystickButton button6 = new JoystickButton(Constants.joystick, 6);
-//        JoystickButton button7 = new JoystickButton(Constants.joystick, 7);
-//        JoystickButton button8 = new JoystickButton(Constants.joystick, 8);
+        JoystickButton button6 = new JoystickButton(Constants.joystick, 6);
+        JoystickButton button7 = new JoystickButton(Constants.joystick, 7);
+        JoystickButton button8 = new JoystickButton(Constants.joystick, 8);
         JoystickButton button9 = new JoystickButton(Constants.joystick, 9);
         JoystickButton button10 = new JoystickButton(Constants.joystick, 10);
-//        JoystickButton button11 = new JoystickButton(Constants.joystick, 11);
-//        JoystickButton button12 = new JoystickButton(Constants.joystick, 12);
+        JoystickButton button11 = new JoystickButton(Constants.joystick, 11);
+        JoystickButton button12 = new JoystickButton(Constants.joystick, 12);
 
         trigger.whenPressed(new ShooterElevatorCommand(getShooterSubsystem(), getElevatorSubsystem()));
         button2.whenPressed(new IntakeResetCommand(getIntakeSubsystem()));
@@ -85,6 +87,11 @@ public class RobotContainer
         button5.whenPressed(new IntakeHomeCommand(getIntakeSubsystem()));
         button9.whenPressed(new ElevatorDownCommand(getElevatorSubsystem()));
         button10.whenPressed(new ElevatorUpCommand(getIntakeSubsystem(), getElevatorSubsystem()));
+        //button7.whenPressed(new RaisePneumatics2(getClimbSubsystem2()));
+        //button8.whenPressed(new LowerPneumatics2(getClimbSubsystem2()));
+        button11.whenPressed(new RaisePneumatics(getClimbSubsystem()));
+        button12.whenPressed(new LowerPneumatics(getClimbSubsystem()));
+
 
     }
 
@@ -96,6 +103,10 @@ public class RobotContainer
     public ClimbSubsystem getClimbSubsystem() {
         return climbSubsystem;
     }
+
+//    public ClimbSubsystem2 getClimbSubsystem2() {
+//        return climbSubsystem2;
+//    }
 
     public ShooterSubsystem getShooterSubsystem() {
         return shooterSubsystem;
