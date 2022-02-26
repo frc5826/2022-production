@@ -2,22 +2,27 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
+import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 
 public class ShooterCommand extends CommandBase {
 
+    private ElevatorSubsystem elevatorSubsystem;
     private ShooterSubsystem shooterSubsystem;
     private int delayCount;
 
-    public ShooterCommand(ShooterSubsystem shooterSubsystem){
+    public ShooterCommand(ShooterSubsystem shooterSubsystem, ElevatorSubsystem elevatorSubsystem){
         delayCount = 0;
         this.shooterSubsystem = shooterSubsystem;
+        this.elevatorSubsystem = elevatorSubsystem;
         addRequirements(shooterSubsystem);
     }
 
     @Override
     public void execute() {
-        shooterSubsystem.shoot();
+        if(elevatorSubsystem.getElevatorTalon().getMotorOutputVoltage() == 0) {
+            shooterSubsystem.shoot();
+        }
         delayCount++;
     }
 

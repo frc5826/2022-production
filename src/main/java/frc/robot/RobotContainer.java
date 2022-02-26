@@ -80,13 +80,15 @@ public class RobotContainer
         JoystickButton button11 = new JoystickButton(Constants.joystick, 11);
         JoystickButton button12 = new JoystickButton(Constants.joystick, 12);
 
+
+        //TODO make this easy to read with like a comment or something because I changed it again :)
         trigger.whenPressed(new ShooterElevatorCommand(getShooterSubsystem(), getElevatorSubsystem()));
         button2.whenPressed(new IntakeResetCommand(getIntakeSubsystem()));
         button3.whenPressed(new IntakeOpenCommand(getIntakeSubsystem()));
         button4.whenPressed(new IntakeCloseCommand(getIntakeSubsystem()));
         button5.whenPressed(new IntakeHomeCommand(getIntakeSubsystem()));
-        button9.whenPressed(new ElevatorDownCommand(getElevatorSubsystem()));
-        button10.whenPressed(new ElevatorUpCommand(getIntakeSubsystem(), getElevatorSubsystem()));
+        button9.whenPressed(new ElevatorUpCommand(getIntakeSubsystem(), getElevatorSubsystem()));
+        button10.whenPressed(new ElevatorDownCommand(getElevatorSubsystem()));
         //button7.whenPressed(new RaisePneumatics2(getClimbSubsystem2()));
         //button8.whenPressed(new LowerPneumatics2(getClimbSubsystem2()));
         button11.whenPressed(new RaisePneumatics(getClimbSubsystem()));

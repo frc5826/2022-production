@@ -12,7 +12,7 @@ public class AutonomousCommandGroup extends SequentialCommandGroup {
     public AutonomousCommandGroup(ShooterSubsystem shooter, ElevatorSubsystem elevator, DriveSubsystem drive, IntakeSubsystem intake){
         addCommands(
                 new ElevatorControllerCommand(Constants.elevatorUpSpeed, elevator),
-                new ShooterCommand(shooter),
+                new ShooterCommand(shooter, elevator),
                 new ElevatorDownCommand(elevator),
                 new IntakeInitializeCommand(intake),
                 new DriveDistanceCommand(Constants.AUTO_DRIVE_DISTANCE_INCHES, drive)
