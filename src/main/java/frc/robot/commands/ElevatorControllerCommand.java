@@ -5,17 +5,25 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.ElevatorSubsystem;
 
+import java.time.Instant;
+
 public class ElevatorControllerCommand extends CommandBase {
 
     private final ElevatorSubsystem elevatorSubsystem;
     private int elevatorInitCount = 0;
     private boolean elevatorInitDone = false;
     private double elevatorMotorPower;
+    private Instant start;
 
     public ElevatorControllerCommand(double elevatorMotorPower, ElevatorSubsystem elevatorSubsystem){
         this.elevatorMotorPower = elevatorMotorPower;
         this.elevatorSubsystem = elevatorSubsystem;
         addRequirements(elevatorSubsystem);
+    }
+
+    @Override
+    public void initialize() {
+        start = Instant.now();
     }
 
     @Override
@@ -39,6 +47,6 @@ public class ElevatorControllerCommand extends CommandBase {
 
     @Override
     public boolean isFinished(){
-        return elevatorInitDone;
+        return elevatorInitDone || (Instant.now().getEpochSecond() - start.getEpochSecond() >= Constants.ELEVATOR_TIMEOUT);
     }
 }

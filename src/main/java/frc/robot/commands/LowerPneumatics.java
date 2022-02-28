@@ -16,7 +16,9 @@ public class LowerPneumatics extends CommandBase {
 
     @Override
     public void execute() {
-        climbSubsystem.lower();
+        if(Constants.joystick.getRawButton(6)) {
+            climbSubsystem.lower();
+        }
         delayCount++;
     }
 

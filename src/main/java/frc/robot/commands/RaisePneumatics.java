@@ -16,7 +16,9 @@ public class RaisePneumatics extends CommandBase {
 
     @Override
     public void execute() {
-        climbSubsystem.raise();
+        if(Constants.joystick.getRawButton(6)) {
+            climbSubsystem.raise();
+        }
         delayCount++;
     }
 
