@@ -65,12 +65,12 @@ public class ChaseCommand extends CommandBase {
                 driveSubsystem.getDiffDrive().arcadeDrive(0,0.4);
             }
 
-            System.out.print("i cant find my balls :( ");
+            //System.out.print("i cant find my balls :( ");
         }
     }
     @Override
     public void end(boolean interrupted) {
-        System.out.println("Ending!");
+        //System.out.println("Ending!");
         driveSubsystem.getDiffDrive().arcadeDrive(0,0);
     }
 }

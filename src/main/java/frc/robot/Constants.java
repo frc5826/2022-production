@@ -97,7 +97,7 @@ public final class Constants {
     public static final int PNEUMATICS_INIT_COUNT = 25;
 
     public static final int INTAKE_CLOSE_POS = 2300;
-    public static final int INTAKE_HOME_POS = 2700;
+    public static final int INTAKE_HOME_POS = 2800;
 
     public static final double INTAKE_MOTOR_POWER = 0.4;
 

@@ -42,8 +42,8 @@ public class IntakePositionCommand extends CommandBase {
         if (rightDiff <= 100){
             rightDone=true;
         }
-        System.out.println(leftDiff);
-        System.out.println(rightDiff);
+        //System.out.println(leftDiff);
+        //System.out.println(rightDiff);
         return leftDone && rightDone;
     }
 }
