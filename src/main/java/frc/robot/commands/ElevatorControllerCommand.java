@@ -1,6 +1,7 @@
 package frc.robot.commands;
 
 import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.ElevatorSubsystem;
@@ -47,6 +48,12 @@ public class ElevatorControllerCommand extends CommandBase {
 
     @Override
     public boolean isFinished(){
+        if(Instant.now().getEpochSecond() - start.getEpochSecond() >= Constants.ELEVATOR_TIMEOUT){
+            SmartDashboard.putString("ElevatorStatus", "Timed Out");
+        }
+        else {
+            SmartDashboard.putString("ElevatorStatus", "Normal");
+        }
         return elevatorInitDone || (Instant.now().getEpochSecond() - start.getEpochSecond() >= Constants.ELEVATOR_TIMEOUT);
     }
 }
