@@ -20,7 +20,7 @@ public class ShooterCommand extends CommandBase {
 
     @Override
     public void execute() {
-        if(elevatorSubsystem.getElevatorTalon().getMotorOutputVoltage() == 0) {
+        if(elevatorSubsystem.isDone()) {
             shooterSubsystem.shoot();
         }
         delayCount++;

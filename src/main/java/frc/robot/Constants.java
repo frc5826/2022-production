@@ -108,5 +108,5 @@ public final class Constants {
     public static final double LEFT_MAX_SPEED = -0.5;
     public static final double RIGHT_MAX_SPEED = 0.5;
 
-    public static final double ELEVATOR_TIMEOUT = 1;
+    public static final double ELEVATOR_TIMEOUT = 4;
 }
