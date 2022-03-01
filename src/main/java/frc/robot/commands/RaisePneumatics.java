@@ -17,7 +17,6 @@ public class RaisePneumatics extends CommandBase {
 
     @Override
     public void execute() {
-        SmartDashboard.putBoolean("ButtonSixValue", Constants.joystick.getRawButton(6));
         if(Constants.joystick.getRawButton(6)) {
             climbSubsystem.raise();
         }

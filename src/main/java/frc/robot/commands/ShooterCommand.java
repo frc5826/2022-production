@@ -15,7 +15,7 @@ public class ShooterCommand extends CommandBase {
         delayCount = 0;
         this.shooterSubsystem = shooterSubsystem;
         this.elevatorSubsystem = elevatorSubsystem;
-        addRequirements(shooterSubsystem);
+        addRequirements(shooterSubsystem, elevatorSubsystem);
     }
 
     @Override
