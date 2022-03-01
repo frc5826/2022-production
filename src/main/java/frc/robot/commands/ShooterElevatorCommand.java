@@ -8,7 +8,7 @@ public class ShooterElevatorCommand extends SequentialCommandGroup {
 
     public ShooterElevatorCommand(ShooterSubsystem shooter, ElevatorSubsystem elevator){
         addCommands(
-                new ShooterCommand(shooter),
+                new ShooterCommand(shooter, elevator),
                 new ElevatorDownCommand(elevator)
         );
     }
