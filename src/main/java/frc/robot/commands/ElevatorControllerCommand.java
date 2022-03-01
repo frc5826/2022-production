@@ -51,12 +51,13 @@ public class ElevatorControllerCommand extends CommandBase {
 
     @Override
     public boolean isFinished(){
-        if(Duration.between(Instant.now(), start).abs().toSeconds() > Constants.ELEVATOR_TIMEOUT){
+        boolean timeout = Duration.between(Instant.now(), start).abs().toSeconds() > Constants.ELEVATOR_TIMEOUT;
+        if(timeout){
             SmartDashboard.putString("ElevatorStatus", "Timed Out");
         }
         else {
             SmartDashboard.putString("ElevatorStatus", "Normal");
         }
-        return elevatorInitDone || (Instant.now().getEpochSecond() - start.getEpochSecond() >= Constants.ELEVATOR_TIMEOUT);
+        return elevatorInitDone || timeout;
     }
 }
