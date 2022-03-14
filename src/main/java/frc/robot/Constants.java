@@ -55,7 +55,7 @@ public final class Constants {
     public static final double GYRO_I = 0.0;
     public static final double GYRO_D = 0.01;
 
-    public static final double PEAK_OUTPUT = 0.5;
+    public static final double PEAK_OUTPUT = 0.2;
     public static final double TURN_PEAK_OUTPUT = 0.2;
 
     public static final double kShooterPeakOutput = 0.90;
@@ -103,9 +103,9 @@ public final class Constants {
 
     public static final int AUTO_DRIVE_DISTANCE_INCHES = 104;
 
-    public static final double REVERSE_MAX_SPEED = -0.5;
-    public static final double LEFT_MAX_SPEED = -0.5;
-    public static final double RIGHT_MAX_SPEED = 0.5;
+    public static final double REVERSE_MAX_SPEED = -0.2;
+    public static final double LEFT_MAX_SPEED = -0.2;
+    public static final double RIGHT_MAX_SPEED = 0.2;
 
     public static final double ELEVATOR_TIMEOUT = 4;
 }

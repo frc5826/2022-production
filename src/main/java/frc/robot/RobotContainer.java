@@ -89,8 +89,6 @@ public class RobotContainer
         button5.whenPressed(new IntakeHomeCommand(getIntakeSubsystem()));
         button9.whenPressed(new ElevatorUpCommand(getIntakeSubsystem(), getElevatorSubsystem()));
         button10.whenPressed(new ElevatorDownCommand(getElevatorSubsystem()));
-        //button7.whenPressed(new RaisePneumatics2(getClimbSubsystem2()));
-        //button8.whenPressed(new LowerPneumatics2(getClimbSubsystem2()));
         button11.whenPressed(new RaisePneumatics(getClimbSubsystem()));
         button12.whenPressed(new LowerPneumatics(getClimbSubsystem()));
 
